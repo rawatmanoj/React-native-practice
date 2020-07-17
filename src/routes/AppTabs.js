@@ -1,30 +1,23 @@
-import React from 'react';
-import {View, Text} from 'react-native';
+import React, {useContext, useEffect} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import EvilIcons from 'react-native-vector-icons/EvilIcons';
-//import {Ionicons, AntDesign, EvilIcons} from 'react-native-vector-icons';
-import Center from './Center';
-const Tabs = createBottomTabNavigator();
-function Home() {
-  return (
-    <View>
-      <Text>Home</Text>
-    </View>
-  );
-}
+import {Context} from '../store/store';
+import Discover from '../Screens/Discover';
+import Home from '../Screens/HomeScreen';
 
-function Discover() {
-  return (
-    <View>
-      <Text>Discover</Text>
-    </View>
-  );
-}
+//import {Ionicons, AntDesign, EvilIcons} from 'react-native-vector-icons';
+const Tabs = createBottomTabNavigator();
 
 const AppTabs = () => {
+  const [state, dispatch] = useContext(Context);
+
+  useEffect(() => {
+    dispatch({type: 'TOKEN', payload: 'yo'});
+    console.log('hi');
+  }, [dispatch]);
+
   return (
     <NavigationContainer>
       <Tabs.Navigator
@@ -46,6 +39,7 @@ const AppTabs = () => {
         tabBarOptions={{
           activeTintColor: 'tomato',
           inactiveTintColor: 'gray',
+          showLabel: false,
         }}>
         <Tabs.Screen name="Home" component={Home} />
         <Tabs.Screen name="Search" component={Discover} />
