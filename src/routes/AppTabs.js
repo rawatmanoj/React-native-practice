@@ -5,7 +5,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {Context} from '../store/store';
 import Discover from '../Screens/Discover';
-import Home from '../Screens/HomeScreen';
+import HomeStack from './HomeStack';
 
 //import {Ionicons, AntDesign, EvilIcons} from 'react-native-vector-icons';
 const Tabs = createBottomTabNavigator();
@@ -41,7 +41,7 @@ const AppTabs = () => {
           inactiveTintColor: 'gray',
           showLabel: false,
         }}>
-        <Tabs.Screen name="Home" component={Home} />
+        <Tabs.Screen name="Home" component={HomeStack} />
         <Tabs.Screen name="Search" component={Discover} />
       </Tabs.Navigator>
     </NavigationContainer>

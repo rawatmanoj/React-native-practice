@@ -7,23 +7,32 @@ import {
   StyleSheet,
   StatusBar,
   Text,
+  TouchableHighlight,
 } from 'react-native';
 import {deviceHeight} from '../../api/Constants';
-
-const App = ({compProp, name}) => {
-  console.log(compProp);
+import {NavigationContainer} from '@react-navigation/native';
+import AnimeStack from '../../routes/AnimeStack';
+const App = ({compProp, name, navigation}) => {
+  console.log(navigation);
   // const [state] = useContext(Context);
   const renderItem = ({item}) => {
     return (
-      <View style={styles.imageContainer}>
-        <Image
-          source={{uri: item.image_url}}
-          style={styles.imageStyle}
-          resizeMode="contain"
-        />
+      <TouchableHighlight
+        onPress={() => {
+          navigation.navigate('AnimeStack', {
+            name: item.title,
+          });
+        }}>
+        <View style={styles.imageContainer}>
+          <Image
+            source={{uri: item.image_url}}
+            style={styles.imageStyle}
+            resizeMode="contain"
+          />
 
-        <Text style={styles.titleStyle}>{item.title}</Text>
-      </View>
+          <Text style={styles.titleStyle}>{item.title}</Text>
+        </View>
+      </TouchableHighlight>
     );
   };
 
@@ -58,17 +67,19 @@ const styles = StyleSheet.create({
   imageStyle: {
     justifyContent: 'center',
     alignItems: 'center',
-    width: 154,
-    height: 200,
+    width: 122,
+    height: 150,
     borderRadius: 8,
   },
   imageContainer: {
-    width: 154,
-    margin: 2,
-    opacity: 0.8,
+    width: 120,
+    // margin: 2,
+    // opacity: 0.8,
+    // backgroundColor: 'red',
   },
   titleStyle: {
     //flexShrink: 1,
+    fontSize: 12,
     marginTop: 5,
     marginLeft: deviceHeight * 0.02,
     color: 'rgba(255, 255, 255, 0.9)',
