@@ -1,10 +1,18 @@
 import React from 'react';
 import {View, Text} from 'react-native';
-const AnimeStack = () => {
+import {createStackNavigator} from '@react-navigation/stack';
+import AnimeInfoScreen from '../Screens/AnimeInfoScreen';
+const Stack = createStackNavigator();
+const AnimeStack = ({route}) => {
+  console.log(route);
   return (
-    <View>
-      <Text>Anime</Text>
-    </View>
+    <Stack.Navigator initialRouteName="AnimeInfoScreen">
+      <Stack.Screen
+        options={{headerShown: false}}
+        name="HomeScreen"
+        component={AnimeInfoScreen}
+      />
+    </Stack.Navigator>
   );
 };
 

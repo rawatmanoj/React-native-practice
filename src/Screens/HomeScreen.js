@@ -6,6 +6,7 @@ import {
   ScrollView,
   TouchableOpacity,
   StyleSheet,
+  StatusBar,
 } from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import HomeSlider from '../Components/Home/HomeSlider';
@@ -31,15 +32,12 @@ const HomeScreen = ({navigation}) => {
       const topMovie = await Top('anime', 'movie');
       const airing = await Top('anime', 'airing');
       // url.then((res) => console.log(res)).catch((err) => console.log(err));
-
-      dispatch({type: 'TOPANIME', payload: topAnime});
-      dispatch({type: 'TOPMANGA', payload: topManga});
-      dispatch({type: 'TOPMOVIE', payload: topMovie});
-      dispatch({type: 'UPCOMING', payload: upcoming});
-      dispatch({type: 'AIRING', payload: airing});
-      //  console.log(topAnime);
+      dispatch({
+        type: 'TOP',
+        payload: {topAnime, topManga, topMovie, upcoming, airing},
+      });
     };
-
+    // console.log(state);
     fetchData();
   }, [dispatch]);
   return (
@@ -47,6 +45,7 @@ const HomeScreen = ({navigation}) => {
       <View style={styles.navbarConatiner}>
         <Text style={styles.appName}>animenation</Text>
         <View style={styles.searchContainer}>
+          <StatusBar backgroundColor="#191725" />
           <TouchableOpacity>
             <Ionicons name={'search'} size={20} color={'grey'} />
           </TouchableOpacity>
@@ -56,36 +55,32 @@ const HomeScreen = ({navigation}) => {
         </View>
       </View>
 
-      {state.topAnime &&
-      state.topManga &&
-      state.topMovie &&
-      state.upcoming &&
-      state.airing ? (
+      {state.top.airing ? (
         <ScrollView>
           <HomeSlider
             navigation={navigation}
             name={'Top anime'}
-            compProp={state.topAnime}
+            compProp={state.top.topAnime}
           />
           <HomeSlider
             navigation={navigation}
             name={'Top manga'}
-            compProp={state.topManga}
+            compProp={state.top.topManga}
           />
           <HomeSlider
             navigation={navigation}
             name={'Top movie'}
-            compProp={state.topMovie}
+            compProp={state.top.topMovie}
           />
           <HomeSlider
             navigation={navigation}
             name={'Top upcoming'}
-            compProp={state.upcoming}
+            compProp={state.top.upcoming}
           />
           <HomeSlider
             navigation={navigation}
-            name={'Top airing'}
-            compProp={state.airing}
+            name={'Airing'}
+            compProp={state.top.airing}
           />
         </ScrollView>
       ) : null}

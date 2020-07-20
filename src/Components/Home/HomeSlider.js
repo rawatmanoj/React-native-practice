@@ -7,32 +7,31 @@ import {
   StyleSheet,
   StatusBar,
   Text,
-  TouchableHighlight,
+  TouchableOpacity,
 } from 'react-native';
 import {deviceHeight} from '../../api/Constants';
-import {NavigationContainer} from '@react-navigation/native';
-import AnimeStack from '../../routes/AnimeStack';
 const App = ({compProp, name, navigation}) => {
-  console.log(navigation);
+  // console.log(navigation);
   // const [state] = useContext(Context);
   const renderItem = ({item}) => {
     return (
-      <TouchableHighlight
-        onPress={() => {
-          navigation.navigate('AnimeStack', {
-            name: item.title,
-          });
-        }}>
-        <View style={styles.imageContainer}>
+      <View style={styles.imageContainer}>
+        <TouchableOpacity
+          onPress={() => {
+            console.log(item);
+            navigation.navigate('AnimeStack', {
+              id: item.mal_id,
+              type: item.type,
+            });
+          }}>
           <Image
             source={{uri: item.image_url}}
             style={styles.imageStyle}
             resizeMode="contain"
           />
-
-          <Text style={styles.titleStyle}>{item.title}</Text>
-        </View>
-      </TouchableHighlight>
+        </TouchableOpacity>
+        <Text style={styles.titleStyle}>{item.title}</Text>
+      </View>
     );
   };
 
@@ -79,10 +78,12 @@ const styles = StyleSheet.create({
   },
   titleStyle: {
     //flexShrink: 1,
-    fontSize: 12,
+    fontSize: 13,
+    opacity: 0.8,
     marginTop: 5,
     marginLeft: deviceHeight * 0.02,
     color: 'rgba(255, 255, 255, 0.9)',
+    fontFamily: 'Lato-Regular',
     //color: 'white',
   },
 });

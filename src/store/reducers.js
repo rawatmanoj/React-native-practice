@@ -1,5 +1,16 @@
 const Reducer = (state, action) => {
   switch (action.type) {
+    case 'TOP':
+      return {
+        ...state,
+        top: {
+          topAnime: action.payload.topAnime,
+          topManga: action.payload.topManga,
+          upcoming: action.payload.upcoming,
+          topMovie: action.payload.topMovie,
+          airing: action.payload.airing,
+        },
+      };
     case 'LOADING':
       return {
         ...state,

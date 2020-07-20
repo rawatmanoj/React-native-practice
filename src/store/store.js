@@ -2,11 +2,13 @@ import React, {createContext, useReducer} from 'react';
 import Reducer from './reducers';
 
 const initialState = {
-  topAnime: null,
-  topManga: null,
-  upcoming: null,
-  topMovie: null,
-  airing: null,
+  top: {
+    topAnime: null,
+    topManga: null,
+    upcoming: null,
+    topMovie: null,
+    airing: null,
+  },
 };
 
 const Store = ({children}) => {
