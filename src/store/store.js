@@ -9,6 +9,8 @@ const initialState = {
     topMovie: null,
     airing: null,
   },
+  currentAnime: null,
+  token: 'yes',
 };
 
 const Store = ({children}) => {
@@ -18,7 +20,5 @@ const Store = ({children}) => {
   );
 };
 
-// export const Context = createContext([{}, function () {}]);
 export const Context = createContext(initialState);
-
 export default Store;

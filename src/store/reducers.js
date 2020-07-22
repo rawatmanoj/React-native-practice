@@ -11,36 +11,18 @@ const Reducer = (state, action) => {
           airing: action.payload.airing,
         },
       };
-    case 'LOADING':
+
+    case 'CURRENT_ANIME':
       return {
         ...state,
-        isLoading: action.payload,
+        currentAnime: action.payload,
       };
-    case 'TOPANIME':
+    case 'TOKEN':
       return {
         ...state,
-        topAnime: action.payload,
+        token: action.payload,
       };
-    case 'TOPMANGA':
-      return {
-        ...state,
-        topManga: action.payload,
-      };
-    case 'TOPMOVIE':
-      return {
-        ...state,
-        topMovie: action.payload,
-      };
-    case 'UPCOMING':
-      return {
-        ...state,
-        upcoming: action.payload,
-      };
-    case 'AIRING':
-      return {
-        ...state,
-        airing: action.payload,
-      };
+
     default:
       return state;
   }

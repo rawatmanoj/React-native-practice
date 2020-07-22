@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext, useState, useEffect} from 'react';
 import {Image} from 'react-native-elements';
 import {
   SafeAreaView,
@@ -10,19 +10,18 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import {deviceHeight} from '../../api/Constants';
-const App = ({compProp, name, navigation}) => {
-  // console.log(navigation);
-  // const [state] = useContext(Context);
+import {Context} from '../../store/store';
+
+const HomeSlider = ({compProp, name, navigation}) => {
+  const [state, dispatch] = useContext(Context);
+
   const renderItem = ({item}) => {
     return (
       <View style={styles.imageContainer}>
         <TouchableOpacity
           onPress={() => {
-            console.log(item);
-            navigation.navigate('AnimeStack', {
-              id: item.mal_id,
-              type: item.type,
-            });
+            dispatch({type: 'CURRENT_ANIME', payload: item.mal_id});
+            navigation.navigate('AnimeStack');
           }}>
           <Image
             source={{uri: item.image_url}}
@@ -88,4 +87,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default App;
+export default HomeSlider;

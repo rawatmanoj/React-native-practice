@@ -1,10 +1,11 @@
-import React from 'react';
-import {View, Text} from 'react-native';
+import React, {useContext} from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import AnimeInfoScreen from '../Screens/AnimeInfoScreen';
+import Context from '../store/store';
 const Stack = createStackNavigator();
-const AnimeStack = ({route}) => {
-  console.log(route);
+const AnimeStack = () => {
+  //const [dispatch] = useContext(Context);
+  // console.log(route);
   return (
     <Stack.Navigator initialRouteName="AnimeInfoScreen">
       <Stack.Screen

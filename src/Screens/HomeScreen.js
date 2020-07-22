@@ -1,5 +1,4 @@
 import React, {useEffect, useContext} from 'react';
-import api from 'jikanjs';
 import {
   View,
   Text,
@@ -8,21 +7,25 @@ import {
   StyleSheet,
   StatusBar,
 } from 'react-native';
-import {NavigationContainer} from '@react-navigation/native';
 import HomeSlider from '../Components/Home/HomeSlider';
 import {Context} from '../store/store';
 import {deviceWidth, deviceHeight} from '../api/Constants';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Entypo from 'react-native-vector-icons/Entypo';
 import axios from 'axios';
-function Top(type, subtype) {
-  return axios(`https://api.jikan.moe/v3/top/${type}/1/${subtype}`)
-    .then((res) => res.data.top)
-    .catch((err) => console.log(err));
+async function Top(type, subtype) {
+  try {
+    const res = await axios(
+      `https://api.jikan.moe/v3/top/${type}/1/${subtype}`,
+    );
+    return res.data.top;
+  } catch (err) {
+    return console.log(err);
+  }
 }
 
 const HomeScreen = ({navigation}) => {
-  console.log(navigation);
+  // console.log(navigation);
   const [state, dispatch] = useContext(Context);
   useEffect(() => {
     const fetchData = async () => {

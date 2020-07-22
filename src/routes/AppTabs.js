@@ -14,9 +14,10 @@ const AppTabs = () => {
   const [state, dispatch] = useContext(Context);
 
   useEffect(() => {
-    dispatch({type: 'TOKEN', payload: 'yo'});
-    console.log('hi');
+    dispatch({type: 'TOKEN', payload: 'bye'});
   }, [dispatch]);
+
+  console.log(state);
 
   return (
     <NavigationContainer>
