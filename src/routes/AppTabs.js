@@ -11,14 +11,6 @@ import HomeStack from './HomeStack';
 const Tabs = createBottomTabNavigator();
 
 const AppTabs = () => {
-  const [state, dispatch] = useContext(Context);
-
-  useEffect(() => {
-    dispatch({type: 'TOKEN', payload: 'bye'});
-  }, [dispatch]);
-
-  console.log(state);
-
   return (
     <NavigationContainer>
       <Tabs.Navigator
@@ -40,7 +32,17 @@ const AppTabs = () => {
         tabBarOptions={{
           activeTintColor: 'tomato',
           inactiveTintColor: 'gray',
+
           showLabel: false,
+          style: {
+            backgroundColor: '#191725',
+            borderTopWidth: 0,
+            shadowOffset: {width: 0, height: 4},
+            shadowOpacity: 0.9,
+            shadowRadius: 4,
+            elevation: 5,
+            shadowColor: 'black',
+          },
         }}>
         <Tabs.Screen name="Home" component={HomeStack} />
         <Tabs.Screen name="Search" component={Discover} />
@@ -50,3 +52,13 @@ const AppTabs = () => {
 };
 
 export default AppTabs;
+
+function strictEquals(a, b) {
+  if (Math.isNaN(a)) {
+    return false;
+  } else if (Object.is(Math.abs(a), 0) && Object.is(Math.abs(b), 0)) {
+    return true;
+  }
+
+  return Object.is(a, b);
+}

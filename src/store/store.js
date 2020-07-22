@@ -11,6 +11,7 @@ const initialState = {
   },
   currentAnime: null,
   token: 'yes',
+  currentAnimeInfo: null,
 };
 
 const Store = ({children}) => {

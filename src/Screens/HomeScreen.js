@@ -48,7 +48,7 @@ const HomeScreen = ({navigation}) => {
       <View style={styles.navbarConatiner}>
         <Text style={styles.appName}>animenation</Text>
         <View style={styles.searchContainer}>
-          <StatusBar backgroundColor="#191725" />
+          <StatusBar backgroundColor="#191725" barStyle="light-content" />
           <TouchableOpacity>
             <Ionicons name={'search'} size={20} color={'grey'} />
           </TouchableOpacity>
@@ -122,7 +122,7 @@ const styles = StyleSheet.create({
     shadowOffset: {width: 0, height: 4},
     shadowOpacity: 0.9,
     shadowRadius: 4,
-    elevation: 8,
+    elevation: 5,
     shadowColor: 'black',
   },
 });

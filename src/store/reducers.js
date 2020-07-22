@@ -17,6 +17,11 @@ const Reducer = (state, action) => {
         ...state,
         currentAnime: action.payload,
       };
+    case 'CURRENT_ANIME_INFO':
+      return {
+        ...state,
+        currentAnimeInfo: action.payload,
+      };
     case 'TOKEN':
       return {
         ...state,
