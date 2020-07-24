@@ -35,6 +35,7 @@ const HomeScreen = ({navigation}) => {
       const topMovie = await Top('anime', 'movie');
       const airing = await Top('anime', 'airing');
       // url.then((res) => console.log(res)).catch((err) => console.log(err));
+      console.log(topManga);
       dispatch({
         type: 'TOP',
         payload: {topAnime, topManga, topMovie, upcoming, airing},
@@ -65,11 +66,11 @@ const HomeScreen = ({navigation}) => {
             name={'Top anime'}
             compProp={state.top.topAnime}
           />
-          <HomeSlider
+          {/* <HomeSlider
             navigation={navigation}
             name={'Top manga'}
             compProp={state.top.topManga}
-          />
+          /> */}
           <HomeSlider
             navigation={navigation}
             name={'Top movie'}

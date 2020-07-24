@@ -1,5 +1,7 @@
 import React, {useContext, useState, useEffect} from 'react';
 import {Image} from 'react-native-elements';
+import {shortAnimeName} from '../../api/utils';
+//import ProgressiveImage from '../../api/progressive-image';
 import {
   SafeAreaView,
   View,
@@ -14,22 +16,28 @@ import {Context} from '../../store/store';
 
 const HomeSlider = ({compProp, name, navigation}) => {
   const [state, dispatch] = useContext(Context);
-
+  // console.log(state);
   const renderItem = ({item}) => {
     return (
-      <View style={styles.imageContainer}>
-        <TouchableOpacity
-          onPress={() => {
-            dispatch({type: 'CURRENT_ANIME', payload: item.mal_id});
-            navigation.navigate('AnimeStack');
-          }}>
-          <Image
-            source={{uri: item.image_url}}
-            style={styles.imageStyle}
-            resizeMode="contain"
-          />
-        </TouchableOpacity>
-        <Text style={styles.titleStyle}>{item.title}</Text>
+      <View style={styles.imageViewContainer}>
+        <View style={styles.imageContainer}>
+          <TouchableOpacity
+            onPress={() => {
+              dispatch({type: 'CURRENT_ANIME', payload: item.mal_id});
+              navigation.navigate('AnimeStack');
+            }}>
+            <Image
+              source={{uri: item.image_url}}
+              style={styles.imageStyle}
+              resizeMode="contain"
+            />
+          </TouchableOpacity>
+        </View>
+        <View style={styles.titleContainer}>
+          <Text style={styles.titleStyle}>
+            {shortAnimeName(item.title, 20)}
+          </Text>
+        </View>
       </View>
     );
   };
@@ -65,15 +73,13 @@ const styles = StyleSheet.create({
   imageStyle: {
     justifyContent: 'center',
     alignItems: 'center',
-    width: 122,
+    width: 125,
     height: 150,
     borderRadius: 8,
   },
-  imageContainer: {
-    width: 120,
-    // margin: 2,
-    // opacity: 0.8,
+  imageViewContainer: {
     // backgroundColor: 'red',
+    // flex: 1,
   },
   titleStyle: {
     //flexShrink: 1,
@@ -82,9 +88,13 @@ const styles = StyleSheet.create({
     marginTop: 5,
     marginLeft: deviceHeight * 0.02,
     color: 'rgba(255, 255, 255, 0.9)',
-    fontFamily: 'Lato-Regular',
+    fontFamily: 'Roboto-Bold',
     //color: 'white',
   },
+  titleContainer: {
+    width: 120,
+  },
+  imageContainer: {},
 });
 
 export default HomeSlider;

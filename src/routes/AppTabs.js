@@ -1,9 +1,8 @@
-import React, {useContext, useEffect} from 'react';
+import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import {Context} from '../store/store';
 import Discover from '../Screens/Discover';
 import HomeStack from './HomeStack';
 
@@ -52,13 +51,3 @@ const AppTabs = () => {
 };
 
 export default AppTabs;
-
-function strictEquals(a, b) {
-  if (Math.isNaN(a)) {
-    return false;
-  } else if (Object.is(Math.abs(a), 0) && Object.is(Math.abs(b), 0)) {
-    return true;
-  }
-
-  return Object.is(a, b);
-}

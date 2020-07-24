@@ -76,6 +76,11 @@
 		<string>Octicons.ttf</string>
 		<string>SimpleLineIcons.ttf</string>
 		<string>Zocial.ttf</string>
+		<string>AlegreyaSans-Bold.ttf</string>
+		<string>Lato-Bold.ttf</string>
+		<string>Poppins-Bold.ttf</string>
+		<string>Roboto-Bold.ttf</string>
+		<string>RobotoSlab-Bold.ttf</string>
 	</array>
 </dict>
 </plist>

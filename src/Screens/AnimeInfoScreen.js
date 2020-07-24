@@ -1,11 +1,22 @@
 /* eslint-disable react/self-closing-comp */
-import React, {useContext, useState, useEffect} from 'react';
-import {View, Text, StyleSheet, StatusBar, ImageBackground} from 'react-native';
+import React, {useContext, useEffect} from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  StatusBar,
+  ImageBackground,
+  Dimensions,
+} from 'react-native';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
 import axios from 'axios';
 import {Context} from '../store/store';
 import {Image} from 'react-native-elements';
 import {deviceHeight, deviceWidth} from '../api/Constants';
 import LinearGradient from 'react-native-linear-gradient';
+import {shortAnimeName} from '../api/utils';
+import AnimeTabView from '../Components/Home/Anime/TabView';
 async function fetchAnime(id) {
   // console.log(id);
   try {
@@ -29,93 +40,80 @@ const AnimeInfoScreen = () => {
   }, [state.currentAnime, dispatch]);
   console.log(state.currentAnimeInfo);
   return (
-    <View style={styles.animeContainer}>
-      <StatusBar
-        translucent
-        backgroundColor="transparent"
-        barStyle="dark-content"
-      />
-
-      {state.currentAnimeInfo ? (
-        // eslint-disable-next-line react/self-closing-comp
-        <View>
-          <ImageBackground
-            source={{uri: state.currentAnimeInfo.image_url}}
-            style={styles.imageBackgroundStyle}
-            resizeMode="cover"
-            blurRadius={0.5}>
-            <LinearGradient
-              colors={['transparent', '#191724']}
-              start={{x: 0.5, y: 0.5}}
-              style={styles.container1}></LinearGradient>
-          </ImageBackground>
-          <View style={styles.smallImage}>
-            <Image
+    <View style={styles.pageContainer}>
+      <View style={styles.animeContainer}>
+        <StatusBar
+          translucent
+          backgroundColor="transparent"
+          barStyle="dark-content"
+        />
+        {state.currentAnimeInfo ? (
+          // eslint-disable-next-line react/self-closing-comp
+          <View>
+            <ImageBackground
               source={{uri: state.currentAnimeInfo.image_url}}
-              style={styles.imageStyle}
-              resizeMode="contain"></Image>
+              style={styles.imageBackgroundStyle}
+              resizeMode="cover"
+              blurRadius={0.5}>
+              <LinearGradient
+                colors={['transparent', '#191724']}
+                start={{x: 0.5, y: 0.5}}
+                style={styles.container1}></LinearGradient>
+            </ImageBackground>
+            <View style={styles.smallImage}>
+              <Image
+                source={{uri: state.currentAnimeInfo.image_url}}
+                style={styles.imageStyle}
+                resizeMode="contain"></Image>
+            </View>
           </View>
-        </View>
-      ) : null}
-      {state.currentAnimeInfo ? (
-        <View style={styles.lowerPart}>
-          <View style={styles.animeNameView}>
-            <Text style={styles.animeNameStyle}>
-              {state.currentAnimeInfo.title}
-            </Text>
-            <Text style={styles.dateStyle}>
-              {state.currentAnimeInfo.aired.prop.from.year + ' | '}
-              {state.currentAnimeInfo.status}
-            </Text>
+        ) : null}
+        {state.currentAnimeInfo ? (
+          <View style={styles.lowerPart}>
+            <View style={styles.animeNameView}>
+              <Text style={styles.animeNameStyle}>
+                {shortAnimeName(state.currentAnimeInfo.title, 30)}
+              </Text>
+              <Text style={styles.dateStyle}>
+                {state.currentAnimeInfo.aired.prop.from.year + ' | '}
+                {state.currentAnimeInfo.status}
+              </Text>
+            </View>
           </View>
+        ) : null}
+        <View
+          style={{
+            alignItems: 'center',
+
+            // backgroundColor: 'red',
+            height: deviceHeight * 0.1,
+            //  width: deviceWidth / 1.14,
+            width: deviceWidth,
+            justifyContent: 'center',
+            // alignItems: 'flex-start',
+          }}>
+          {/* <Ionicons
+            // style={{}}
+            name={'star'}
+            size={40}
+            color={'grey'}
+          /> */}
+          <Text
+            style={{color: '#00adb5', fontFamily: 'Lato-Bold', fontSize: 25}}>
+            Rank 1
+          </Text>
         </View>
-      ) : null}
+      </View>
+      <View style={styles.navStyles}>
+        <AnimeTabView />
+      </View>
     </View>
   );
 };
 
 export default AnimeInfoScreen;
 
-// import * as React from 'react';
-// import {View, StyleSheet, Dimensions} from 'react-native';
-// import {TabView, SceneMap} from 'react-native-tab-view';
-
-// const FirstRoute = () => (
-//   <View style={[styles.scene, {backgroundColor: '#ff4081'}]} />
-// );
-
-// const SecondRoute = () => (
-//   <View style={[styles.scene, {backgroundColor: '#673ab7'}]} />
-// );
-
-// const initialLayout = {width: Dimensions.get('window').width};
-
-// export default function AnimeInfoScreen() {
-//   const [index, setIndex] = React.useState(0);
-//   const [routes] = React.useState([
-//     {key: 'first', title: 'First'},
-//     {key: 'second', title: 'Second'},
-//   ]);
-
-//   const renderScene = SceneMap({
-//     first: FirstRoute,
-//     second: SecondRoute,
-//   });
-
-//   return (
-//     <TabView
-//       navigationState={{index, routes}}
-//       renderScene={renderScene}
-//       onIndexChange={setIndex}
-//       initialLayout={initialLayout}
-//     />
-//   );
-// }
-
 const styles = StyleSheet.create({
-  // scene: {
-  //   flex: 1,
-  // },
   imageBackgroundStyle: {
     // justifyContent: 'center',
     // alignItems: 'center',
@@ -131,10 +129,8 @@ const styles = StyleSheet.create({
     height: 150,
     borderRadius: 8,
   },
-  animeContainer: {
+  pageContainer: {
     flex: 1,
-    alignItems: 'center',
-    backgroundColor: '#191725',
   },
   smallImage: {
     // position: 'relative',
@@ -167,5 +163,13 @@ const styles = StyleSheet.create({
     color: 'grey',
     fontSize: 15,
     fontFamily: 'Roboto-Regular',
+  },
+  navStyles: {
+    flex: 3,
+  },
+  animeContainer: {
+    flex: 3,
+    alignItems: 'center',
+    backgroundColor: '#191725',
   },
 });
