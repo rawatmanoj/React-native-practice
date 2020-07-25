@@ -25,20 +25,20 @@ async function Top(type, subtype) {
 }
 
 const HomeScreen = ({navigation}) => {
-  // console.log(navigation);
+  console.log('homescreen');
   const [state, dispatch] = useContext(Context);
   useEffect(() => {
     const fetchData = async () => {
       const topAnime = await Top('anime', 'favorite');
-      const topManga = await Top('manga', 'favorite');
+      //  const topManga = await Top('manga', 'favorite');
       const upcoming = await Top('anime', 'upcoming');
       const topMovie = await Top('anime', 'movie');
       const airing = await Top('anime', 'airing');
       // url.then((res) => console.log(res)).catch((err) => console.log(err));
-      console.log(topManga);
+      // console.log(topManga);
       dispatch({
         type: 'TOP',
-        payload: {topAnime, topManga, topMovie, upcoming, airing},
+        payload: {topAnime, topMovie, upcoming, airing},
       });
     };
     // console.log(state);

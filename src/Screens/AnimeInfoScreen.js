@@ -1,15 +1,7 @@
 /* eslint-disable react/self-closing-comp */
 import React, {useContext, useEffect} from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  StatusBar,
-  ImageBackground,
-  Dimensions,
-} from 'react-native';
+import {View, Text, StyleSheet, StatusBar, ImageBackground} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
 import axios from 'axios';
 import {Context} from '../store/store';
 import {Image} from 'react-native-elements';
@@ -18,7 +10,6 @@ import LinearGradient from 'react-native-linear-gradient';
 import {shortAnimeName} from '../api/utils';
 import AnimeTabView from '../Components/Home/Anime/TabView';
 async function fetchAnime(id) {
-  // console.log(id);
   try {
     const res = await axios(`https://api.jikan.moe/v3/anime/${id}`);
     return res.data;
@@ -39,6 +30,11 @@ const AnimeInfoScreen = () => {
     fetchData();
   }, [state.currentAnime, dispatch]);
   console.log(state.currentAnimeInfo);
+
+  // const handleScroll = (e) => {
+  //   console.log(e.nativeEvent.contentOffset.y);
+  // };
+
   return (
     <View style={styles.pageContainer}>
       <View style={styles.animeContainer}>
@@ -72,7 +68,7 @@ const AnimeInfoScreen = () => {
           <View style={styles.lowerPart}>
             <View style={styles.animeNameView}>
               <Text style={styles.animeNameStyle}>
-                {shortAnimeName(state.currentAnimeInfo.title, 30)}
+                {shortAnimeName(state.currentAnimeInfo.title, 35)}
               </Text>
               <Text style={styles.dateStyle}>
                 {state.currentAnimeInfo.aired.prop.from.year + ' | '}
@@ -81,28 +77,46 @@ const AnimeInfoScreen = () => {
             </View>
           </View>
         ) : null}
-        <View
-          style={{
-            alignItems: 'center',
-
-            // backgroundColor: 'red',
-            height: deviceHeight * 0.1,
-            //  width: deviceWidth / 1.14,
-            width: deviceWidth,
-            justifyContent: 'center',
-            // alignItems: 'flex-start',
-          }}>
-          {/* <Ionicons
-            // style={{}}
-            name={'star'}
-            size={40}
-            color={'grey'}
-          /> */}
-          <Text
-            style={{color: '#00adb5', fontFamily: 'Lato-Bold', fontSize: 25}}>
-            Rank 1
-          </Text>
-        </View>
+        {state.currentAnimeInfo ? (
+          <View
+            style={{
+              alignItems: 'center',
+              flexDirection: 'row',
+              // backgroundColor: 'red',
+              height: deviceHeight * 0.075,
+              //  width: deviceWidth / 1.14,
+              width: deviceWidth,
+              justifyContent: 'space-evenly',
+              // backgroundColor: 'blue',
+              // alignItems: 'flex-start',
+            }}>
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+              }}>
+              <Ionicons
+                // style={{}}
+                name={'heart'}
+                size={22}
+                color={'tomato'}
+              />
+              <Text
+                style={{
+                  paddingLeft: 3,
+                  color: '#605D74',
+                  fontFamily: 'RobotoSlab-Bold',
+                  fontSize: 22,
+                }}>
+                {(state.currentAnimeInfo.score * 10).toFixed(0)}%
+              </Text>
+            </View>
+            <Text
+              style={{color: '#605D74', fontFamily: 'Lato-Bold', fontSize: 22}}>
+              Rank {state.currentAnimeInfo.rank}
+            </Text>
+          </View>
+        ) : null}
       </View>
       <View style={styles.navStyles}>
         <AnimeTabView />
@@ -145,13 +159,15 @@ const styles = StyleSheet.create({
     // alignSelf: 'flex-end',
     color: 'white',
     fontSize: 20,
-    fontFamily: 'Roboto-Regular',
+    fontFamily: 'Lato-Bold',
     //fontWeight: '700',
   },
   lowerPart: {
     marginTop: 13,
     width: deviceWidth,
+    height: 90,
     alignItems: 'center',
+    // backgroundColor: 'red',
   },
   animeNameView: {
     width: deviceWidth / 2,
@@ -162,10 +178,11 @@ const styles = StyleSheet.create({
   dateStyle: {
     color: 'grey',
     fontSize: 15,
-    fontFamily: 'Roboto-Regular',
+    fontFamily: 'Lato-Bold',
   },
   navStyles: {
     flex: 3,
+    // position: 'absolute',
   },
   animeContainer: {
     flex: 3,

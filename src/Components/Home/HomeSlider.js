@@ -1,4 +1,4 @@
-import React, {useContext, useState, useEffect} from 'react';
+import React, {useContext} from 'react';
 import {Image} from 'react-native-elements';
 import {shortAnimeName} from '../../api/utils';
 //import ProgressiveImage from '../../api/progressive-image';
@@ -16,13 +16,14 @@ import {Context} from '../../store/store';
 
 const HomeSlider = ({compProp, name, navigation}) => {
   const [state, dispatch] = useContext(Context);
-  // console.log(state);
+  console.log('homeslider');
   const renderItem = ({item}) => {
     return (
       <View style={styles.imageViewContainer}>
         <View style={styles.imageContainer}>
           <TouchableOpacity
             onPress={() => {
+              console.log('HomeSlider');
               dispatch({type: 'CURRENT_ANIME', payload: item.mal_id});
               navigation.navigate('AnimeStack');
             }}>

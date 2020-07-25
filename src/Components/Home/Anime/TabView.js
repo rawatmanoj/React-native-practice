@@ -12,6 +12,16 @@ import About from './About/About';
 import Characters from '../Anime/Characters/Characters';
 const renderTabBar = (props) => (
   <TabBar
+    renderLabel={({route, focused, color}) => (
+      <Text
+        style={{
+          color,
+          fontSize: 16,
+          fontFamily: 'Roboto-Bold',
+        }}>
+        {route.title}
+      </Text>
+    )}
     tabStyle={{width: 130}}
     scrollEnabled={true}
     onTabPress={({route, preventDefault}) => {
@@ -63,9 +73,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#191725',
   },
   tabBar: {
-    color: 'black',
+    // color: 'black',
     backgroundColor: '#191725',
-    borderBottomColor: 'grey',
-    borderBottomWidth: 1.1,
+    // borderBottomColor: 'grey',
+    //borderBottomWidth: 1.1,
   },
 });

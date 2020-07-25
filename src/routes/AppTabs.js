@@ -10,6 +10,7 @@ import HomeStack from './HomeStack';
 const Tabs = createBottomTabNavigator();
 
 const AppTabs = () => {
+  console.log('AppTabs');
   return (
     <NavigationContainer>
       <Tabs.Navigator

@@ -5,6 +5,7 @@ import AnimeStack from '../routes/AnimeStack';
 const Stack = createStackNavigator();
 
 const HomeStack = () => {
+  console.log('HomeStack');
   return (
     <Stack.Navigator initialRouteName="HomeScreen">
       <Stack.Screen
