@@ -8,6 +8,8 @@ const initialState = {
     upcoming: null,
     topMovie: null,
     airing: null,
+    trendingAnime: null,
+    trendingMovie: null,
   },
   currentAnime: null,
   token: 'yes',

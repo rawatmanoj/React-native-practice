@@ -9,31 +9,23 @@ import {deviceHeight, deviceWidth} from '../api/Constants';
 import LinearGradient from 'react-native-linear-gradient';
 import {shortAnimeName} from '../api/utils';
 import AnimeTabView from '../Components/Home/Anime/TabView';
-async function fetchAnime(id) {
-  try {
-    const res = await axios(`https://api.jikan.moe/v3/anime/${id}`);
-    return res.data;
-  } catch (err) {
-    return console.log(err);
-  }
-}
+import {getAnime} from '../api/apicalls';
 
 const AnimeInfoScreen = () => {
   const [state, dispatch] = useContext(Context);
   useEffect(() => {
     const fetchData = async () => {
-      // console.log(state.currentAnime);
-      const animeInfo = await fetchAnime(state.currentAnime);
-      dispatch({type: 'CURRENT_ANIME_INFO', payload: animeInfo});
-    };
+      const animeInfo = await getAnime(state.currentAnime);
 
+      dispatch({
+        type: 'CURRENT_ANIME_INFO',
+        payload: animeInfo.Media,
+      });
+    };
+    console.log(state);
     fetchData();
   }, [state.currentAnime, dispatch]);
-  console.log(state.currentAnimeInfo);
-
-  // const handleScroll = (e) => {
-  //   console.log(e.nativeEvent.contentOffset.y);
-  // };
+  //console.log(state.currentAnimeInfo);
 
   return (
     <View style={styles.pageContainer}>
@@ -47,10 +39,11 @@ const AnimeInfoScreen = () => {
           // eslint-disable-next-line react/self-closing-comp
           <View>
             <ImageBackground
-              source={{uri: state.currentAnimeInfo.image_url}}
+              source={{uri: state.currentAnimeInfo.bannerImage}}
               style={styles.imageBackgroundStyle}
               resizeMode="cover"
-              blurRadius={0.5}>
+              // blurRadius={5}
+            >
               <LinearGradient
                 colors={['transparent', '#191724']}
                 start={{x: 0.5, y: 0.5}}
@@ -58,7 +51,7 @@ const AnimeInfoScreen = () => {
             </ImageBackground>
             <View style={styles.smallImage}>
               <Image
-                source={{uri: state.currentAnimeInfo.image_url}}
+                source={{uri: state.currentAnimeInfo.coverImage.medium}}
                 style={styles.imageStyle}
                 resizeMode="contain"></Image>
             </View>
@@ -68,10 +61,13 @@ const AnimeInfoScreen = () => {
           <View style={styles.lowerPart}>
             <View style={styles.animeNameView}>
               <Text style={styles.animeNameStyle}>
-                {shortAnimeName(state.currentAnimeInfo.title, 35)}
+                {shortAnimeName(state.currentAnimeInfo.title.userPreferred, 30)}
               </Text>
               <Text style={styles.dateStyle}>
-                {state.currentAnimeInfo.aired.prop.from.year + ' | '}
+                {state.currentAnimeInfo.seasonYear
+                  ? state.currentAnimeInfo.seasonYear + ' | '
+                  : null}
+
                 {state.currentAnimeInfo.status}
               </Text>
             </View>
@@ -108,12 +104,14 @@ const AnimeInfoScreen = () => {
                   fontFamily: 'RobotoSlab-Bold',
                   fontSize: 22,
                 }}>
-                {(state.currentAnimeInfo.score * 10).toFixed(0)}%
+                {state.currentAnimeInfo.averageScore
+                  ? state.currentAnimeInfo.averageScore.toFixed(0) + '%'
+                  : '0%'}
               </Text>
             </View>
             <Text
               style={{color: '#605D74', fontFamily: 'Lato-Bold', fontSize: 22}}>
-              Rank {state.currentAnimeInfo.rank}
+              Rank {state.currentAnimeInfo.rankings[0].rank}
             </Text>
           </View>
         ) : null}

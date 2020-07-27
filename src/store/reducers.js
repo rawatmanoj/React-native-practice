@@ -9,6 +9,8 @@ const Reducer = (state, action) => {
           upcoming: action.payload.upcoming,
           topMovie: action.payload.topMovie,
           airing: action.payload.airing,
+          trendingAnime: action.payload.trendingAnime,
+          trendingMovie: action.payload.trendingMovie,
         },
       };
 

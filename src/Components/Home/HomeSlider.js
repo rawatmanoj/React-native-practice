@@ -14,21 +14,23 @@ import {
 import {deviceHeight} from '../../api/Constants';
 import {Context} from '../../store/store';
 
-const HomeSlider = ({compProp, name, navigation}) => {
+const HomeSlider = React.memo(({compProp, name, navigation}) => {
   const [state, dispatch] = useContext(Context);
-  console.log('homeslider');
+  const renders = React.useRef(0);
+  console.log('Homeslider' + renders.current++);
+
   const renderItem = ({item}) => {
+    // console.log(item.idMal);
     return (
-      <View style={styles.imageViewContainer}>
+      <View>
         <View style={styles.imageContainer}>
           <TouchableOpacity
             onPress={() => {
-              console.log('HomeSlider');
-              dispatch({type: 'CURRENT_ANIME', payload: item.mal_id});
+              dispatch({type: 'CURRENT_ANIME', payload: item.id});
               navigation.navigate('AnimeStack');
             }}>
             <Image
-              source={{uri: item.image_url}}
+              source={{uri: item.coverImage.medium}}
               style={styles.imageStyle}
               resizeMode="contain"
             />
@@ -36,7 +38,7 @@ const HomeSlider = ({compProp, name, navigation}) => {
         </View>
         <View style={styles.titleContainer}>
           <Text style={styles.titleStyle}>
-            {shortAnimeName(item.title, 20)}
+            {shortAnimeName(item.title.userPreferred, 20)}
           </Text>
         </View>
       </View>
@@ -49,16 +51,15 @@ const HomeSlider = ({compProp, name, navigation}) => {
       <FlatList
         showsHorizontalScrollIndicator={false}
         horizontal={true}
-        data={compProp}
+        data={compProp.Page.media}
         renderItem={renderItem}
         keyExtractor={(item) => {
-          //  console.log(item);
-          return item.mal_id.toString();
+          return item.id.toString();
         }}
       />
     </SafeAreaView>
   );
-};
+});
 
 const styles = StyleSheet.create({
   container: {
@@ -72,14 +73,13 @@ const styles = StyleSheet.create({
     marginBottom: deviceHeight * 0.02,
   },
   imageStyle: {
-    justifyContent: 'center',
-    alignItems: 'center',
     width: 125,
     height: 150,
-    borderRadius: 8,
+    borderRadius: 4,
   },
   imageViewContainer: {
     // backgroundColor: 'red',
+    justifyContent: 'center',
     // flex: 1,
   },
   titleStyle: {

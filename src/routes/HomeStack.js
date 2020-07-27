@@ -4,8 +4,9 @@ import HomeScreen from '../Screens/HomeScreen';
 import AnimeStack from '../routes/AnimeStack';
 const Stack = createStackNavigator();
 
-const HomeStack = () => {
-  console.log('HomeStack');
+const HomeStack = React.memo(() => {
+  const renders = React.useRef(0);
+  console.log('HomeStack' + renders.current++);
   return (
     <Stack.Navigator initialRouteName="HomeScreen">
       <Stack.Screen
@@ -20,6 +21,6 @@ const HomeStack = () => {
       />
     </Stack.Navigator>
   );
-};
+});
 
 export default HomeStack;
