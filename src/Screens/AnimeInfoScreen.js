@@ -1,31 +1,34 @@
 /* eslint-disable react/self-closing-comp */
-import React, {useContext, useEffect} from 'react';
+import React, {useEffect} from 'react';
 import {View, Text, StyleSheet, StatusBar, ImageBackground} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import axios from 'axios';
-import {Context} from '../store/store';
+
 import {Image} from 'react-native-elements';
 import {deviceHeight, deviceWidth} from '../api/Constants';
 import LinearGradient from 'react-native-linear-gradient';
 import {shortAnimeName} from '../api/utils';
 import AnimeTabView from '../Components/Home/Anime/TabView';
 import {getAnime} from '../api/apicalls';
-
+import {useDispatch, useSelector} from 'react-redux';
 const AnimeInfoScreen = () => {
-  const [state, dispatch] = useContext(Context);
+  const dispatch = useDispatch();
+  console.log('AnimeInfoSCreen');
+
+  const anime = useSelector((state) => state.getAnime);
+
   useEffect(() => {
     const fetchData = async () => {
-      const animeInfo = await getAnime(state.currentAnime);
+      const animeInfo = await getAnime(anime.currentAnime);
+      console.log(animeInfo);
 
       dispatch({
         type: 'CURRENT_ANIME_INFO',
         payload: animeInfo.Media,
       });
     };
-    console.log(state);
+
     fetchData();
-  }, [state.currentAnime, dispatch]);
-  //console.log(state.currentAnimeInfo);
+  }, [anime.currentAnime, dispatch]);
 
   return (
     <View style={styles.pageContainer}>
@@ -35,15 +38,12 @@ const AnimeInfoScreen = () => {
           backgroundColor="transparent"
           barStyle="dark-content"
         />
-        {state.currentAnimeInfo ? (
-          // eslint-disable-next-line react/self-closing-comp
+        {anime.currentAnimeInfo ? (
           <View>
             <ImageBackground
-              source={{uri: state.currentAnimeInfo.bannerImage}}
+              source={{uri: anime.currentAnimeInfo.bannerImage}}
               style={styles.imageBackgroundStyle}
-              resizeMode="cover"
-              // blurRadius={5}
-            >
+              resizeMode="cover">
               <LinearGradient
                 colors={['transparent', '#191724']}
                 start={{x: 0.5, y: 0.5}}
@@ -51,29 +51,29 @@ const AnimeInfoScreen = () => {
             </ImageBackground>
             <View style={styles.smallImage}>
               <Image
-                source={{uri: state.currentAnimeInfo.coverImage.medium}}
+                source={{uri: anime.currentAnimeInfo.coverImage.medium}}
                 style={styles.imageStyle}
                 resizeMode="contain"></Image>
             </View>
           </View>
         ) : null}
-        {state.currentAnimeInfo ? (
+        {anime.currentAnimeInfo ? (
           <View style={styles.lowerPart}>
             <View style={styles.animeNameView}>
               <Text style={styles.animeNameStyle}>
-                {shortAnimeName(state.currentAnimeInfo.title.userPreferred, 30)}
+                {shortAnimeName(anime.currentAnimeInfo.title.userPreferred, 30)}
               </Text>
               <Text style={styles.dateStyle}>
-                {state.currentAnimeInfo.seasonYear
-                  ? state.currentAnimeInfo.seasonYear + ' | '
+                {anime.currentAnimeInfo.seasonYear
+                  ? anime.currentAnimeInfo.seasonYear + ' | '
                   : null}
 
-                {state.currentAnimeInfo.status}
+                {anime.currentAnimeInfo.status}
               </Text>
             </View>
           </View>
         ) : null}
-        {state.currentAnimeInfo ? (
+        {anime.currentAnimeInfo ? (
           <View
             style={{
               alignItems: 'center',
@@ -104,14 +104,14 @@ const AnimeInfoScreen = () => {
                   fontFamily: 'RobotoSlab-Bold',
                   fontSize: 22,
                 }}>
-                {state.currentAnimeInfo.averageScore
-                  ? state.currentAnimeInfo.averageScore.toFixed(0) + '%'
+                {anime.currentAnimeInfo.averageScore
+                  ? anime.currentAnimeInfo.averageScore.toFixed(0) + '%'
                   : '0%'}
               </Text>
             </View>
             <Text
               style={{color: '#605D74', fontFamily: 'Lato-Bold', fontSize: 22}}>
-              Rank {state.currentAnimeInfo.rankings[0].rank}
+              Rank {anime.currentAnimeInfo.rankings[0].rank}
             </Text>
           </View>
         ) : null}
@@ -134,9 +134,6 @@ const styles = StyleSheet.create({
     // blurRadius: '1',
   },
   imageStyle: {
-    // flex: 1,
-    // justifyContent: 'center',
-    // alignItems: 'center',
     width: 122,
     height: 150,
     borderRadius: 8,

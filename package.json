@@ -15,6 +15,7 @@
     "@react-navigation/drawer": "^5.8.5",
     "@react-navigation/native": "^5.7.0",
     "@react-navigation/stack": "^5.7.0",
+    "@welldone-software/why-did-you-render": "^4.2.7",
     "axios": "^0.19.2",
     "instagram-private-api": "^1.41.0",
     "jikanjs": "^0.7.0",
@@ -31,7 +32,9 @@
     "react-native-screens": "^2.9.0",
     "react-native-tab-view": "^2.15.0",
     "react-native-vector-icons": "^7.0.0",
-    "react-native-webview": "^10.3.2"
+    "react-native-webview": "^10.3.2",
+    "react-redux": "^7.2.1",
+    "redux": "^4.0.5"
   },
   "devDependencies": {
     "@babel/core": "^7.8.4",

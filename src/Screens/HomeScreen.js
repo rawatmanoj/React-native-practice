@@ -1,4 +1,4 @@
-import React, {useEffect, useContext} from 'react';
+import React, {useEffect, useContext, useState} from 'react';
 import {
   View,
   Text,
@@ -15,36 +15,41 @@ import Entypo from 'react-native-vector-icons/Entypo';
 import axios from 'axios';
 import {TopAnime} from '../api/apicalls';
 
-const HomeScreen = React.memo(({navigation}) => {
-  const renders = React.useRef(0);
-  console.log('HomeScreen' + renders.current++);
-  const [state, dispatch] = useContext(Context);
+const HomeScreen = React.memo(() => {
+  console.log('HomeScreen');
+  //const [state, dispatch] = useContext(Context);
+  const [state, setState] = useState({
+    top: {
+      topAnime: null,
+      topManga: null,
+      upcoming: null,
+      topMovie: null,
+      airing: null,
+      trendingAnime: null,
+      trendingMovie: null,
+    },
+  });
   useEffect(() => {
     const fetchData = async () => {
-      // const topAnime = await Top('anime', 'favorite');
-
-      // url.then((res) => console.log(res)).catch((err) => console.log(err));
-      // console.log(topManga);
       const topAnime = await TopAnime('ANIME', 'SCORE_DESC', 'TV');
       const topMovie = await TopAnime('ANIME', 'SCORE_DESC', 'MOVIE');
       const topManga = await TopAnime('MANGA', 'FAVOURITES_DESC', 'MANGA');
       const trendingAnime = await TopAnime('ANIME', 'TRENDING_DESC', 'TV');
       const trendingMovie = await TopAnime('ANIME', 'TRENDING_DESC', 'MOVIE');
-      console.log(trendingAnime);
-      dispatch({
-        type: 'TOP',
-        payload: {
-          topAnime,
-          trendingAnime,
-          trendingMovie,
-          topManga,
-          topMovie,
+
+      setState({
+        top: {
+          topAnime: topAnime,
+          topManga: topManga,
+          topMovie: topMovie,
+          trendingAnime: trendingAnime,
+          trendingMovie: trendingMovie,
         },
       });
     };
 
     fetchData();
-  }, [dispatch]);
+  }, []);
   return (
     <View style={styles.homeContainer}>
       <View style={styles.navbarConatiner}>
@@ -63,30 +68,16 @@ const HomeScreen = React.memo(({navigation}) => {
       {state.top.topMovie ? (
         <ScrollView>
           <HomeSlider
-            navigation={navigation}
             name={'Trending anime'}
             compProp={state.top.trendingAnime}
           />
           <HomeSlider
-            navigation={navigation}
             name={'Trending Movie'}
             compProp={state.top.trendingMovie}
           />
-          <HomeSlider
-            navigation={navigation}
-            name={'Top anime'}
-            compProp={state.top.topAnime}
-          />
-          <HomeSlider
-            navigation={navigation}
-            name={'Top manga'}
-            compProp={state.top.topManga}
-          />
-          <HomeSlider
-            navigation={navigation}
-            name={'Top movie'}
-            compProp={state.top.topMovie}
-          />
+          <HomeSlider name={'Top anime'} compProp={state.top.topAnime} />
+          <HomeSlider name={'Top manga'} compProp={state.top.topManga} />
+          <HomeSlider name={'Top movie'} compProp={state.top.topMovie} />
         </ScrollView>
       ) : null}
     </View>

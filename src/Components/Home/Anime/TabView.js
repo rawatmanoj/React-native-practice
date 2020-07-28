@@ -1,12 +1,5 @@
 import React from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  Dimensions,
-  SafeAreaView,
-  ScrollView,
-} from 'react-native';
+import {StyleSheet, Text, View, Dimensions} from 'react-native';
 import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
 import About from './About/About';
 import Characters from '../Anime/Characters/Characters';
@@ -42,6 +35,7 @@ const SecondRoute = () => <View style={styles.scene} />;
 const initialLayout = {width: Dimensions.get('window').width};
 
 export default function AnimeTabView() {
+  console.log('animeTabView');
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
     {key: 'about', title: 'About'},
@@ -73,9 +67,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#191725',
   },
   tabBar: {
-    // color: 'black',
     backgroundColor: '#191725',
-    // borderBottomColor: 'grey',
-    //borderBottomWidth: 1.1,
   },
 });

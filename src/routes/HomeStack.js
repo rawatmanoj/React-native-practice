@@ -1,12 +1,20 @@
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import HomeScreen from '../Screens/HomeScreen';
-import AnimeStack from '../routes/AnimeStack';
+import AnimeStack from '../Screens/AnimeInfoScreen';
+import {Text, View} from 'react-native';
 const Stack = createStackNavigator();
 
+const newComp = () => {
+  return (
+    <View>
+      <Text>NEWCOMP</Text>
+    </View>
+  );
+};
+
 const HomeStack = React.memo(() => {
-  const renders = React.useRef(0);
-  console.log('HomeStack' + renders.current++);
+  console.log('HomeStack');
   return (
     <Stack.Navigator initialRouteName="HomeScreen">
       <Stack.Screen
@@ -16,9 +24,14 @@ const HomeStack = React.memo(() => {
       />
       <Stack.Screen
         options={{headerShown: false}}
-        name="AnimeStack"
+        name="AnimeStacks"
         component={AnimeStack}
       />
+      {/* <Stack.Screen
+        options={{headerShown: false}}
+        name="newComp"
+        component={newComp}
+      /> */}
     </Stack.Navigator>
   );
 });

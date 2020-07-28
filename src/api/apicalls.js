@@ -9,29 +9,22 @@ export const TopAnime = async (type = 'ANIME', sortType, format) => {
 
         idMal
         id
-        type
-        favourites
         title {
             userPreferred
-          english
+        
         
       }
      coverImage {
      
        medium
-       color
+       
      }
-    bannerImage
+    
     }
   }
 }
 
 `;
-
-  // Define our query variables and values that will be used in the query request
-  //   var variables = {
-  //     sort: sortType,
-  //   };
 
   // Define the config we'll need for our Api request
   var url = 'https://graphql.anilist.co',
@@ -52,7 +45,23 @@ export const TopAnime = async (type = 'ANIME', sortType, format) => {
   return res.data;
 };
 //37510
+// reviews {
+//   edges {
+//     node {
+//       id
+//       ratingAmount
+//       score
+//       rating
+//       summary
+//     }
+//   }
+// }
 
+// characters {
+//   edges {
+//     id
+//   }
+// }
 export const getAnime = async (id) => {
   let query = `
   {
@@ -82,39 +91,81 @@ export const getAnime = async (id) => {
           month
           day
         }
+        endDate {
+          year
+          month
+          day
+        }
         genres
       
-        reviews {
-          edges {
-            node {
-              id
-              ratingAmount
-              score
-              rating
-              summary
-            }
-          }
-        }
-        characters {
-          edges {
-            id
-          }
-        }
+        
+       
         rankings {
-          id
+      
           rank
         }
         title {
-          native
-          english
+        
+        
           userPreferred
         }
         coverImage {
-          large
+      
           medium
-          color
+      
         }
         bannerImage
+      }
+    }
+  
+  
+  `;
+
+  // Define our query variables and values that will be used in the query request
+  //   var variables = {
+  //     sort: sortType,
+  //   };
+
+  // Define the config we'll need for our Api request
+  var url = 'https://graphql.anilist.co',
+    options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify({
+        query: query,
+        // variables: variables,
+      }),
+    };
+
+  const response = await fetch(url, options);
+  const res = await response.json();
+  return res.data;
+};
+
+export const getChar = async (id) => {
+  let query = `
+  {
+
+      Media(id:${id}) {
+      
+        characters {
+          nodes{
+            id
+            name {       
+              first
+              last
+              full
+              native
+            }
+            image {
+              large
+              medium
+            }
+          }
+        }
       }
     }
   

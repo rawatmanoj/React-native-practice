@@ -1,38 +1,66 @@
-import React, {useEffect, useContext} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {Image} from 'react-native-elements';
+import {
+  StyleSheet,
+  StatusBar,
+  Text,
+  View,
+  SafeAreaView,
+  FlatList,
+  TouchableOpacity,
+} from 'react-native';
 import {Context} from '../../../../store/store';
-import axios from 'axios';
-
-async function fetchCharacters(id) {
-  try {
-    const res = await axios(
-      `https://api.jikan.moe/v3/anime/${id}/characters_staff`,
-    );
-    return res.data.top;
-  } catch (err) {
-    return console.log(err);
-  }
-}
-
+import {getChar} from '../../../../api/apicalls';
+import {useSelector} from 'react-redux';
 export default function Characters() {
-  const [state] = useContext(Context);
+  console.log('characters');
+  // const [state] = useContext(Context);
+  const [char, setChar] = useState(null);
+  const anime = useSelector((state) => state.getAnime);
   useEffect(() => {
     const fetchChar = async () => {
-      const char = fetchCharacters(state.currentAnime);
-      console.log(char);
+      const characters = await getChar(anime.currentAnime);
+      setChar(characters.Media.characters.nodes);
+      console.log(characters);
     };
 
     fetchChar();
-  }, []);
+  }, [anime.currentAnime]);
+
+  const renderItem = ({item}) => {
+    return (
+      <View>
+        <View style={{width: 10, height: 10}}>
+          {/* <TouchableOpacity onPress={() => {}}> */}
+          <Image
+            source={{uri: item.image.medium}}
+            style={{flex: 1, width: '100%'}}
+            resizeMode="contain"
+          />
+          {/* </TouchableOpacity> */}
+        </View>
+      </View>
+    );
+  };
   return (
-    <View style={styles.scene}>
-      <Text>Characters</Text>
-    </View>
+    <SafeAreaView style={styles.container}>
+      {/* <Text style={styles.propName}>{name}</Text> */}
+      <FlatList
+        showsHorizontalScrollIndicator={false}
+        //  horizontal={true}
+        data={char}
+        renderItem={renderItem}
+        keyExtractor={(item) => {
+          return item.id.toString();
+        }}
+      />
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  scene: {
+  scene: {},
+  container: {
     flex: 1,
     backgroundColor: '#191725',
   },

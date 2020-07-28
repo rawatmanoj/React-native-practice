@@ -1,7 +1,6 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import {Image} from 'react-native-elements';
 import {shortAnimeName} from '../../api/utils';
-//import ProgressiveImage from '../../api/progressive-image';
 import {
   SafeAreaView,
   View,
@@ -12,54 +11,67 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import {deviceHeight} from '../../api/Constants';
-import {Context} from '../../store/store';
+import {useNavigation} from '@react-navigation/native';
+import {useSelector} from 'react-redux';
+import {useDispatch} from 'react-redux';
 
-const HomeSlider = React.memo(({compProp, name, navigation}) => {
-  const [state, dispatch] = useContext(Context);
-  const renders = React.useRef(0);
-  console.log('Homeslider' + renders.current++);
+const HomeSlider = React.memo(
+  ({compProp}) => {
+    const dispatch = useDispatch();
+    const navigation = useNavigation();
 
-  const renderItem = ({item}) => {
-    // console.log(item.idMal);
+    //const anime = useSelector((state) => state.getAnime);
+    // console.log(anime);
+
+    console.log('Homeslider');
+
+    const renderItem = ({item}) => {
+      return (
+        <View>
+          <View style={styles.imageContainer}>
+            <TouchableOpacity
+              onPress={() => {
+                dispatch({type: 'CURRENT_ANIME', payload: item.id});
+                navigation.navigate('AnimeStacks');
+              }}>
+              <Image
+                source={{uri: item.coverImage.medium}}
+                style={styles.imageStyle}
+                resizeMode="contain"
+              />
+            </TouchableOpacity>
+          </View>
+          <View style={styles.titleContainer}>
+            <Text style={styles.titleStyle}>
+              {shortAnimeName(item.title.userPreferred, 20)}
+            </Text>
+          </View>
+        </View>
+      );
+    };
+
     return (
-      <View>
-        <View style={styles.imageContainer}>
-          <TouchableOpacity
-            onPress={() => {
-              dispatch({type: 'CURRENT_ANIME', payload: item.id});
-              navigation.navigate('AnimeStack');
-            }}>
-            <Image
-              source={{uri: item.coverImage.medium}}
-              style={styles.imageStyle}
-              resizeMode="contain"
-            />
-          </TouchableOpacity>
-        </View>
-        <View style={styles.titleContainer}>
-          <Text style={styles.titleStyle}>
-            {shortAnimeName(item.title.userPreferred, 20)}
-          </Text>
-        </View>
-      </View>
+      <SafeAreaView style={styles.container}>
+        {/* <Text style={styles.propName}>{name}</Text> */}
+        <FlatList
+          showsHorizontalScrollIndicator={false}
+          horizontal={true}
+          data={compProp.Page.media}
+          renderItem={renderItem}
+          keyExtractor={(item) => {
+            return item.id.toString();
+          }}
+        />
+      </SafeAreaView>
     );
-  };
-
-  return (
-    <SafeAreaView style={styles.container}>
-      <Text style={styles.propName}>{name}</Text>
-      <FlatList
-        showsHorizontalScrollIndicator={false}
-        horizontal={true}
-        data={compProp.Page.media}
-        renderItem={renderItem}
-        keyExtractor={(item) => {
-          return item.id.toString();
-        }}
-      />
-    </SafeAreaView>
-  );
-});
+  },
+  (prevProps, nextProps) => {
+    if (prevProps.compProp !== nextProps.compProp) {
+      return false;
+    }
+    return true;
+  },
+);
 
 const styles = StyleSheet.create({
   container: {
