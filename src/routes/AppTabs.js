@@ -37,11 +37,11 @@ const AppTabs = () => {
           style: {
             backgroundColor: '#191725',
             borderTopWidth: 0,
-            shadowOffset: {width: 0, height: 4},
-            shadowOpacity: 0.9,
-            shadowRadius: 4,
-            elevation: 5,
-            shadowColor: 'black',
+            // shadowOffset: {width: 0, height: 4},
+            // shadowOpacity: 0.9,
+            // shadowRadius: 4,
+            // elevation: 5,
+            // shadowColor: 'black',
           },
         }}>
         <Tabs.Screen name="Home" component={HomeStack} />

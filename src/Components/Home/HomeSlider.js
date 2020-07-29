@@ -1,6 +1,7 @@
 import React from 'react';
 import {Image} from 'react-native-elements';
 import {shortAnimeName} from '../../api/utils';
+import EStyleSheet from 'react-native-extended-stylesheet';
 import {
   SafeAreaView,
   View,
@@ -10,18 +11,14 @@ import {
   Text,
   TouchableOpacity,
 } from 'react-native';
-import {deviceHeight} from '../../api/Constants';
+import {deviceHeight, deviceWidth} from '../../api/Constants';
 import {useNavigation} from '@react-navigation/native';
-import {useSelector} from 'react-redux';
 import {useDispatch} from 'react-redux';
 
 const HomeSlider = React.memo(
-  ({compProp}) => {
+  ({compProp, name}) => {
     const dispatch = useDispatch();
     const navigation = useNavigation();
-
-    //const anime = useSelector((state) => state.getAnime);
-    // console.log(anime);
 
     console.log('Homeslider');
 
@@ -52,7 +49,7 @@ const HomeSlider = React.memo(
 
     return (
       <SafeAreaView style={styles.container}>
-        {/* <Text style={styles.propName}>{name}</Text> */}
+        <Text style={styles.propName}>{name}</Text>
         <FlatList
           showsHorizontalScrollIndicator={false}
           horizontal={true}
@@ -73,39 +70,40 @@ const HomeSlider = React.memo(
   },
 );
 
-const styles = StyleSheet.create({
-  container: {
-    marginTop: StatusBar.currentHeight || 0,
-  },
+const styles = EStyleSheet.create({
   propName: {
     color: 'white',
-    fontSize: 22,
-    marginLeft: deviceHeight * 0.02,
+    fontSize: '22rem',
+    marginLeft: deviceWidth * 0.04,
     fontFamily: 'Lato-Regular',
-    marginBottom: deviceHeight * 0.02,
+    marginBottom: deviceWidth * 0.04,
+    marginTop: deviceWidth * 0.04,
   },
   imageStyle: {
-    width: 125,
-    height: 150,
+    //width: 125,
+    //height: 150,
+    width: deviceWidth * 0.314,
+    height: deviceHeight * 0.19,
+
     borderRadius: 4,
   },
   imageViewContainer: {
-    // backgroundColor: 'red',
     justifyContent: 'center',
-    // flex: 1,
   },
   titleStyle: {
     //flexShrink: 1,
-    fontSize: 13,
+    fontSize: '12.5rem',
     opacity: 0.8,
-    marginTop: 5,
-    marginLeft: deviceHeight * 0.02,
+    marginTop: deviceHeight * 0.008,
+    marginLeft: deviceWidth * 0.04,
     color: 'rgba(255, 255, 255, 0.9)',
     fontFamily: 'Roboto-Bold',
     //color: 'white',
   },
   titleContainer: {
-    width: 120,
+    //backgroundColor: 'blue',
+    width: deviceWidth * 0.28,
+    //width: 120,
   },
   imageContainer: {},
 });

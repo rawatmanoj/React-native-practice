@@ -2,7 +2,6 @@
 import React, {useEffect} from 'react';
 import {View, Text, StyleSheet, StatusBar, ImageBackground} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-
 import {Image} from 'react-native-elements';
 import {deviceHeight, deviceWidth} from '../api/Constants';
 import LinearGradient from 'react-native-linear-gradient';
@@ -10,6 +9,7 @@ import {shortAnimeName} from '../api/utils';
 import AnimeTabView from '../Components/Home/Anime/TabView';
 import {getAnime} from '../api/apicalls';
 import {useDispatch, useSelector} from 'react-redux';
+import EStyleSheet from 'react-native-extended-stylesheet';
 const AnimeInfoScreen = () => {
   const dispatch = useDispatch();
   console.log('AnimeInfoSCreen');
@@ -74,43 +74,21 @@ const AnimeInfoScreen = () => {
           </View>
         ) : null}
         {anime.currentAnimeInfo ? (
-          <View
-            style={{
-              alignItems: 'center',
-              flexDirection: 'row',
-              // backgroundColor: 'red',
-              height: deviceHeight * 0.075,
-              //  width: deviceWidth / 1.14,
-              width: deviceWidth,
-              justifyContent: 'space-evenly',
-              // backgroundColor: 'blue',
-              // alignItems: 'flex-start',
-            }}>
-            <View
-              style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-              }}>
+          <View style={styles.popularityContainer}>
+            <View style={styles.popularityIcon}>
               <Ionicons
                 // style={{}}
                 name={'heart'}
                 size={22}
                 color={'tomato'}
               />
-              <Text
-                style={{
-                  paddingLeft: 3,
-                  color: '#605D74',
-                  fontFamily: 'RobotoSlab-Bold',
-                  fontSize: 22,
-                }}>
+              <Text style={styles.scoreStyles}>
                 {anime.currentAnimeInfo.averageScore
                   ? anime.currentAnimeInfo.averageScore.toFixed(0) + '%'
                   : '0%'}
               </Text>
             </View>
-            <Text
-              style={{color: '#605D74', fontFamily: 'Lato-Bold', fontSize: 22}}>
+            <Text style={styles.rankStyles}>
               Rank {anime.currentAnimeInfo.rankings[0].rank}
             </Text>
           </View>
@@ -125,13 +103,22 @@ const AnimeInfoScreen = () => {
 
 export default AnimeInfoScreen;
 
-const styles = StyleSheet.create({
+const styles = EStyleSheet.create({
   imageBackgroundStyle: {
-    // justifyContent: 'center',
-    // alignItems: 'center',
     width: deviceWidth,
     height: deviceWidth * 0.5,
-    // blurRadius: '1',
+  },
+  rankStyles: {color: '#605D74', fontFamily: 'Lato-Bold', fontSize: 22},
+  popularityContainer: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    height: deviceHeight * 0.075,
+    width: deviceWidth,
+    justifyContent: 'space-evenly',
+  },
+  popularityIcon: {
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   imageStyle: {
     width: 122,
@@ -150,8 +137,13 @@ const styles = StyleSheet.create({
   container1: {
     flex: 1,
   },
+  scoreStyles: {
+    paddingLeft: 3,
+    color: '#605D74',
+    fontFamily: 'RobotoSlab-Bold',
+    fontSize: 22,
+  },
   animeNameStyle: {
-    // alignSelf: 'flex-end',
     color: 'white',
     fontSize: 20,
     fontFamily: 'Lato-Bold',

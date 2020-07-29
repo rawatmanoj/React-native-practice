@@ -195,3 +195,102 @@ export const getChar = async (id) => {
   const res = await response.json();
   return res.data;
 };
+
+export const getStaff = async (id) => {
+  let query = `
+  {
+
+      Media(id:${id}) {
+      
+        staff {
+          nodes{
+            id
+            name {       
+              first
+              last
+              full
+              native
+            }
+            image {
+              large
+              medium
+            }
+          }
+        }
+      }
+    }
+  
+  
+  `;
+
+  var url = 'https://graphql.anilist.co',
+    options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify({
+        query: query,
+        // variables: variables,
+      }),
+    };
+
+  const response = await fetch(url, options);
+  const res = await response.json();
+  return res.data;
+};
+
+export const getReviews = async (id) => {
+  let query = `
+  {
+
+      Media(id:${id}) {
+
+        reviews {
+      
+          nodes{
+            
+            
+            siteUrl
+            createdAt
+            user {
+              id
+              name
+              avatar {
+                large
+                medium
+              }
+              bannerImage
+            }
+            id
+            ratingAmount
+            summary
+            score
+          }
+          
+        }
+      
+      }
+    }
+  
+  
+  `;
+
+  var url = 'https://graphql.anilist.co',
+    options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify({
+        query: query,
+        // variables: variables,
+      }),
+    };
+
+  const response = await fetch(url, options);
+  const res = await response.json();
+  return res.data;
+};

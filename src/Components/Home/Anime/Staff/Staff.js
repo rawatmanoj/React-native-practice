@@ -1,6 +1,9 @@
 import React, {useEffect, useState} from 'react';
+import {Image} from 'react-native-elements';
+import EStyleSheet from 'react-native-extended-stylesheet';
 import {
   StyleSheet,
+  StatusBar,
   Text,
   View,
   SafeAreaView,
@@ -8,18 +11,18 @@ import {
   TouchableOpacity,
   ImageBackground,
 } from 'react-native';
-import {getChar} from '../../../../api/apicalls';
+
+import {getStaff} from '../../../../api/apicalls';
 import {useSelector} from 'react-redux';
-import EStyleSheet from 'react-native-extended-stylesheet';
 export default function Characters() {
+  console.log('characters');
   // const [state] = useContext(Context);
-  const [char, setChar] = useState(null);
+  const [staff, setStaff] = useState(null);
   const anime = useSelector((state) => state.getAnime);
   useEffect(() => {
     const fetchChar = async () => {
-      const characters = await getChar(anime.currentAnime);
-      setChar(characters.Media.characters.nodes);
-      console.log(characters);
+      const staffs = await getStaff(anime.currentAnime);
+      setStaff(staffs.Media.staff.nodes);
     };
 
     fetchChar();
@@ -46,12 +49,13 @@ export default function Characters() {
   };
   return (
     <SafeAreaView style={styles.container}>
+      {/* <Text style={styles.propName}>{name}</Text> */}
       <FlatList
         showsHorizontalScrollIndicator={false}
-        data={char}
+        data={staff}
         renderItem={renderItem}
-        keyExtractor={(item) => {
-          return item.id.toString();
+        keyExtractor={(item, i) => {
+          return i.toString();
         }}
       />
     </SafeAreaView>
@@ -65,10 +69,12 @@ const styles = EStyleSheet.create({
     backgroundColor: '#191725',
   },
   imageContainer: {
+    // backgroundColor: 'red',
     marginBottom: 35,
     marginLeft: 20,
     marginTop: 20,
     flexDirection: 'row',
+    // justifyContent: 'center',
     alignItems: 'center',
   },
   imageStyles: {

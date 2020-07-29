@@ -1,8 +1,12 @@
+/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import {StyleSheet, Text, View, Dimensions} from 'react-native';
 import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
 import About from './About/About';
 import Characters from '../Anime/Characters/Characters';
+import Staff from './Staff/Staff';
+import Review from './Reviews/Review';
+import EStyleSheet from 'react-native-extended-stylesheet';
 const renderTabBar = (props) => (
   <TabBar
     renderLabel={({route, focused, color}) => (
@@ -29,9 +33,6 @@ const renderTabBar = (props) => (
   />
 );
 
-const FirstRoute = () => <View style={styles.scene} />;
-
-const SecondRoute = () => <View style={styles.scene} />;
 const initialLayout = {width: Dimensions.get('window').width};
 
 export default function AnimeTabView() {
@@ -40,15 +41,15 @@ export default function AnimeTabView() {
   const [routes] = React.useState([
     {key: 'about', title: 'About'},
     {key: 'characters', title: 'Characters'},
-    {key: 'first', title: 'First'},
-    {key: 'second', title: 'Second'},
+    {key: 'staff', title: 'Staff'},
+    {key: 'review', title: 'Review'},
   ]);
 
   const renderScene = SceneMap({
     about: About,
     characters: Characters,
-    first: FirstRoute,
-    second: SecondRoute,
+    staff: Staff,
+    review: Review,
   });
   return (
     <TabView
@@ -61,7 +62,7 @@ export default function AnimeTabView() {
   );
 }
 
-const styles = StyleSheet.create({
+const styles = EStyleSheet.create({
   scene: {
     flex: 1,
     backgroundColor: '#191725',

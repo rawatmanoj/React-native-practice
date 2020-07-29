@@ -1,4 +1,5 @@
-import React, {useEffect, useContext, useState} from 'react';
+import React, {useEffect, useState} from 'react';
+import EStyleSheet from 'react-native-extended-stylesheet';
 import {
   View,
   Text,
@@ -8,16 +9,14 @@ import {
   StatusBar,
 } from 'react-native';
 import HomeSlider from '../Components/Home/HomeSlider';
-import {Context} from '../store/store';
 import {deviceWidth, deviceHeight} from '../api/Constants';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Entypo from 'react-native-vector-icons/Entypo';
-import axios from 'axios';
 import {TopAnime} from '../api/apicalls';
 
 const HomeScreen = React.memo(() => {
   console.log('HomeScreen');
-  //const [state, dispatch] = useContext(Context);
+
   const [state, setState] = useState({
     top: {
       topAnime: null,
@@ -53,7 +52,7 @@ const HomeScreen = React.memo(() => {
   return (
     <View style={styles.homeContainer}>
       <View style={styles.navbarConatiner}>
-        <Text style={styles.appName}>someName</Text>
+        <Text style={styles.appName}>animenation</Text>
         <View style={styles.searchContainer}>
           <StatusBar backgroundColor="#191725" barStyle="light-content" />
           <TouchableOpacity>
@@ -84,7 +83,7 @@ const HomeScreen = React.memo(() => {
   );
 });
 
-const styles = StyleSheet.create({
+const styles = EStyleSheet.create({
   homeContainer: {
     flex: 1,
     backgroundColor: '#191725',
@@ -92,14 +91,13 @@ const styles = StyleSheet.create({
   appName: {
     flex: 3,
     color: '#e84545',
-    fontSize: deviceHeight * 0.042,
-    marginLeft: deviceHeight * 0.02,
+    fontSize: '35rem',
+    marginLeft: '10rem',
     fontFamily: 'Poppins-Regular',
-    //fontWeight: 'bold',
   },
   searchContainer: {
     flex: 1,
-    marginRight: deviceHeight * 0.012,
+    marginRight: '1rem',
     flexDirection: 'row',
     justifyContent: 'space-around',
   },
@@ -107,11 +105,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    width: (deviceWidth * 100) / 100,
-    height: (deviceHeight * 10) / 100,
+    width: deviceWidth,
+    height: deviceHeight * 0.1,
     backgroundColor: '#191725',
-    // backgroundColor: 'blue',
-
     shadowOffset: {width: 0, height: 4},
     shadowOpacity: 0.9,
     shadowRadius: 4,
