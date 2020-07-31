@@ -32,7 +32,7 @@ export default function About() {
                     <Button
                       key={i}
                       buttonStyle={{
-                        backgroundColor: '#333041',
+                        backgroundColor: '#58596B',
                         margin: 4,
                       }}
                       title={genre}
@@ -47,7 +47,7 @@ export default function About() {
                 return (
                   <Button
                     key={i}
-                    buttonStyle={{backgroundColor: '#333041', margin: 4}}
+                    buttonStyle={{backgroundColor: '#58596B', margin: 4}}
                     title={studio.name}
                   />
                 );
@@ -128,15 +128,15 @@ export default function About() {
 const styles = EStyleSheet.create({
   scene: {
     width: deviceWidth,
-    padding: 10,
+    padding: '10rem',
     flex: 1,
-    backgroundColor: '#191725',
+    backgroundColor: '$baseColor',
   },
   subHeading: {
     color: 'grey',
-    fontSize: 16,
-    marginTop: 20,
-    marginBottom: 10,
+    fontSize: '16rem',
+    marginTop: '18rem',
+    marginBottom: '8rem',
     fontFamily: 'Lato-Bold',
   },
   boxStyle: {
@@ -144,12 +144,12 @@ const styles = EStyleSheet.create({
     overflow: 'visible',
     flexWrap: 'wrap',
   },
-  animeInfoContainer: {marginTop: 12, marginBottom: 10},
+  animeInfoContainer: {marginTop: '12rem', marginBottom: '10rem'},
   animeInfoHeader: {
     color: 'white',
-    fontSize: 22,
-    marginTop: 20,
-    marginBottom: 20,
+    fontSize: '22rem',
+    marginTop: '20rem',
+    marginBottom: '20rem',
     fontFamily: 'Lato-Bold',
   },
   subAnimeInfoContainer: {
@@ -157,12 +157,12 @@ const styles = EStyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
 
-    marginBottom: 20,
+    marginBottom: '20rem',
   },
   subAnimeInfoHeading: {
-    color: '#605D74',
-    fontSize: 16,
+    color: '#67687A',
+    fontSize: '16rem',
     fontFamily: 'Lato-Bold',
   },
-  titleStyles: {color: '#EAE4E4', fontFamily: 'Lato-Bold'},
+  titleStyles: {color: '#EAE4E4', fontFamily: 'Lato-Bold', fontSize: '14rem'},
 });

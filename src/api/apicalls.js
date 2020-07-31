@@ -15,7 +15,7 @@ export const TopAnime = async (type = 'ANIME', sortType, format) => {
         
       }
      coverImage {
-     
+      large
        medium
        
      }
@@ -110,7 +110,7 @@ export const getAnime = async (id) => {
           userPreferred
         }
         coverImage {
-      
+          large
           medium
       
         }
@@ -274,6 +274,49 @@ export const getReviews = async (id) => {
       }
     }
   
+  
+  `;
+
+  var url = 'https://graphql.anilist.co',
+    options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify({
+        query: query,
+        // variables: variables,
+      }),
+    };
+
+  const response = await fetch(url, options);
+  const res = await response.json();
+  return res.data;
+};
+
+export const searchAnime = async (search, type) => {
+  let query = `
+  {
+    Page( page: 1, perPage: 50) {
+
+    
+      media(search: "${search}",sort:POPULARITY_DESC,type:${type}) {
+   
+           idMal
+           id
+           title {
+               userPreferred        
+         }
+        coverImage {
+         large
+          medium
+          
+        }
+       
+       }
+     }
+  }
   
   `;
 

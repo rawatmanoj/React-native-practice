@@ -30,7 +30,7 @@ const AnimeInfoScreen = () => {
     fetchData();
   }, [anime.currentAnime, dispatch]);
 
-  return (
+  return anime.currentAnimeInfo ? (
     <View style={styles.pageContainer}>
       <View style={styles.animeContainer}>
         <StatusBar
@@ -38,67 +38,61 @@ const AnimeInfoScreen = () => {
           backgroundColor="transparent"
           barStyle="dark-content"
         />
-        {anime.currentAnimeInfo ? (
-          <View>
-            <ImageBackground
-              source={{uri: anime.currentAnimeInfo.bannerImage}}
-              style={styles.imageBackgroundStyle}
-              resizeMode="cover">
-              <LinearGradient
-                colors={['transparent', '#191724']}
-                start={{x: 0.5, y: 0.5}}
-                style={styles.container1}></LinearGradient>
-            </ImageBackground>
-            <View style={styles.smallImage}>
-              <Image
-                source={{uri: anime.currentAnimeInfo.coverImage.medium}}
-                style={styles.imageStyle}
-                resizeMode="contain"></Image>
-            </View>
-          </View>
-        ) : null}
-        {anime.currentAnimeInfo ? (
-          <View style={styles.lowerPart}>
-            <View style={styles.animeNameView}>
-              <Text style={styles.animeNameStyle}>
-                {shortAnimeName(anime.currentAnimeInfo.title.userPreferred, 30)}
-              </Text>
-              <Text style={styles.dateStyle}>
-                {anime.currentAnimeInfo.seasonYear
-                  ? anime.currentAnimeInfo.seasonYear + ' | '
-                  : null}
 
-                {anime.currentAnimeInfo.status}
-              </Text>
-            </View>
+        <View>
+          <ImageBackground
+            source={{uri: anime.currentAnimeInfo.bannerImage}}
+            style={styles.imageBackgroundStyle}
+            resizeMode="cover">
+            <LinearGradient
+              colors={['transparent', '#292B3A']}
+              start={{x: 0.5, y: 0.5}}
+              style={styles.container1}></LinearGradient>
+          </ImageBackground>
+          <View style={styles.smallImage}>
+            <Image
+              source={{uri: anime.currentAnimeInfo.coverImage.large}}
+              style={styles.imageStyle}
+              resizeMode="contain"></Image>
           </View>
-        ) : null}
-        {anime.currentAnimeInfo ? (
-          <View style={styles.popularityContainer}>
-            <View style={styles.popularityIcon}>
-              <Ionicons
-                // style={{}}
-                name={'heart'}
-                size={22}
-                color={'tomato'}
-              />
-              <Text style={styles.scoreStyles}>
-                {anime.currentAnimeInfo.averageScore
-                  ? anime.currentAnimeInfo.averageScore.toFixed(0) + '%'
-                  : '0%'}
-              </Text>
-            </View>
-            <Text style={styles.rankStyles}>
-              Rank {anime.currentAnimeInfo.rankings[0].rank}
+        </View>
+
+        <View style={styles.lowerPart}>
+          <View style={styles.animeNameView}>
+            <Text style={styles.animeNameStyle}>
+              {shortAnimeName(anime.currentAnimeInfo.title.userPreferred, 30)}
+            </Text>
+            <Text style={styles.dateStyle}>
+              {anime.currentAnimeInfo.seasonYear
+                ? anime.currentAnimeInfo.seasonYear + ' | '
+                : null}
+
+              {anime.currentAnimeInfo.status}
             </Text>
           </View>
-        ) : null}
+        </View>
+
+        <View style={styles.popularityContainer}>
+          <View style={styles.popularityIcon}>
+            <Ionicons
+              name={'heart'}
+              size={22}
+              color={EStyleSheet.value('$spcColor')}
+            />
+            <Text style={styles.scoreStyles}>
+              {anime.currentAnimeInfo.averageScore
+                ? anime.currentAnimeInfo.averageScore.toFixed(0) + '%'
+                : '0%'}
+            </Text>
+          </View>
+          <Text style={styles.rankStyles}>
+            Rank {anime.currentAnimeInfo.rankings[0].rank}
+          </Text>
+        </View>
       </View>
-      <View style={styles.navStyles}>
-        <AnimeTabView />
-      </View>
+      <AnimeTabView />
     </View>
-  );
+  ) : null;
 };
 
 export default AnimeInfoScreen;
@@ -106,13 +100,13 @@ export default AnimeInfoScreen;
 const styles = EStyleSheet.create({
   imageBackgroundStyle: {
     width: deviceWidth,
-    height: deviceWidth * 0.5,
+    height: '190rem',
   },
-  rankStyles: {color: '#605D74', fontFamily: 'Lato-Bold', fontSize: 22},
+  rankStyles: {color: '#605D74', fontFamily: 'Lato-Bold', fontSize: '20rem'},
   popularityContainer: {
     alignItems: 'center',
     flexDirection: 'row',
-    height: deviceHeight * 0.075,
+    height: '55rem',
     width: deviceWidth,
     justifyContent: 'space-evenly',
   },
@@ -121,9 +115,9 @@ const styles = EStyleSheet.create({
     alignItems: 'center',
   },
   imageStyle: {
-    width: 122,
-    height: 150,
-    borderRadius: 8,
+    height: '148rem',
+    aspectRatio: 0.8,
+    borderRadius: 10,
   },
   pageContainer: {
     flex: 1,
@@ -131,49 +125,48 @@ const styles = EStyleSheet.create({
   smallImage: {
     // position: 'relative',
     position: 'absolute',
-    left: deviceWidth / 2 - 185,
+    left: '10rem',
     top: deviceHeight * 0.18,
   },
   container1: {
     flex: 1,
   },
   scoreStyles: {
-    paddingLeft: 3,
+    paddingLeft: '3rem',
     color: '#605D74',
     fontFamily: 'RobotoSlab-Bold',
-    fontSize: 22,
+    fontSize: '20rem',
   },
   animeNameStyle: {
     color: 'white',
-    fontSize: 20,
+    fontSize: '20rem',
     fontFamily: 'Lato-Bold',
+    marginBottom: '2rem',
     //fontWeight: '700',
   },
   lowerPart: {
-    marginTop: 13,
+    marginTop: '13rem',
     width: deviceWidth,
-    height: 90,
+    height: '88rem',
     alignItems: 'center',
-    // backgroundColor: 'red',
+    //backgroundColor: 'red',
   },
   animeNameView: {
     width: deviceWidth / 2,
     marginRight: deviceWidth * 0.14,
+    // marginRight: '50rem',
     alignSelf: 'flex-end',
-    // alignItems: 'flex-end',
   },
   dateStyle: {
-    color: 'grey',
+    color: '#605D74',
     fontSize: 15,
-    fontFamily: 'Lato-Bold',
+    fontFamily: 'Roboto-Bold',
   },
   navStyles: {
-    flex: 3,
     // position: 'absolute',
   },
   animeContainer: {
-    flex: 3,
     alignItems: 'center',
-    backgroundColor: '#191725',
+    backgroundColor: '$baseColor',
   },
 });

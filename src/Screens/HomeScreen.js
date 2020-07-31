@@ -5,7 +5,6 @@ import {
   Text,
   ScrollView,
   TouchableOpacity,
-  StyleSheet,
   StatusBar,
 } from 'react-native';
 import HomeSlider from '../Components/Home/HomeSlider';
@@ -14,7 +13,10 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import Entypo from 'react-native-vector-icons/Entypo';
 import {TopAnime} from '../api/apicalls';
 
+import {useNavigation} from '@react-navigation/native';
+
 const HomeScreen = React.memo(() => {
+  const navigation = useNavigation();
   console.log('HomeScreen');
 
   const [state, setState] = useState({
@@ -35,7 +37,7 @@ const HomeScreen = React.memo(() => {
       const topManga = await TopAnime('MANGA', 'FAVOURITES_DESC', 'MANGA');
       const trendingAnime = await TopAnime('ANIME', 'TRENDING_DESC', 'TV');
       const trendingMovie = await TopAnime('ANIME', 'TRENDING_DESC', 'MOVIE');
-
+      console.log(topAnime);
       setState({
         top: {
           topAnime: topAnime,
@@ -54,9 +56,17 @@ const HomeScreen = React.memo(() => {
       <View style={styles.navbarConatiner}>
         <Text style={styles.appName}>animenation</Text>
         <View style={styles.searchContainer}>
-          <StatusBar backgroundColor="#191725" barStyle="light-content" />
-          <TouchableOpacity>
-            <Ionicons name={'search'} size={20} color={'grey'} />
+          <StatusBar
+            backgroundColor={EStyleSheet.value('$baseColor')}
+            barStyle="light-content"
+          />
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate('SearchScreen');
+            }}>
+            <View>
+              <Ionicons name={'search'} size={20} color={'grey'} />
+            </View>
           </TouchableOpacity>
           <TouchableOpacity>
             <Entypo name={'dots-three-vertical'} size={20} color={'grey'} />
@@ -86,13 +96,13 @@ const HomeScreen = React.memo(() => {
 const styles = EStyleSheet.create({
   homeContainer: {
     flex: 1,
-    backgroundColor: '#191725',
+    backgroundColor: '$baseColor',
   },
   appName: {
     flex: 3,
-    color: '#e84545',
-    fontSize: '35rem',
-    marginLeft: '10rem',
+    color: '$spcColor',
+    fontSize: '30rem',
+    marginLeft: '18rem',
     fontFamily: 'Poppins-Regular',
   },
   searchContainer: {
@@ -107,7 +117,7 @@ const styles = EStyleSheet.create({
     alignItems: 'center',
     width: deviceWidth,
     height: deviceHeight * 0.1,
-    backgroundColor: '#191725',
+    backgroundColor: '$baseColor',
     shadowOffset: {width: 0, height: 4},
     shadowOpacity: 0.9,
     shadowRadius: 4,

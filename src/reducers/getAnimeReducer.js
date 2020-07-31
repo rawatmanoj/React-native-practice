@@ -1,16 +1,8 @@
 const initialState = {
-  top: {
-    topAnime: null,
-    topManga: null,
-    upcoming: null,
-    topMovie: null,
-    airing: null,
-    trendingAnime: null,
-    trendingMovie: null,
-  },
   currentAnime: null,
   token: 'yes',
   currentAnimeInfo: null,
+  search: '',
 };
 
 const Reducer = (state = initialState, action) => {
@@ -29,6 +21,11 @@ const Reducer = (state = initialState, action) => {
       return {
         ...state,
         token: action.payload,
+      };
+    case 'SEARCH':
+      return {
+        ...state,
+        search: action.payload,
       };
 
     default:

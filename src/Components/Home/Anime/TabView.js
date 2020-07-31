@@ -19,7 +19,7 @@ const renderTabBar = (props) => (
         {route.title}
       </Text>
     )}
-    tabStyle={{width: 130}}
+    tabStyle={styles.tabStyles}
     scrollEnabled={true}
     onTabPress={({route, preventDefault}) => {
       if (route.key === 'first') {
@@ -28,7 +28,7 @@ const renderTabBar = (props) => (
       }
     }}
     {...props}
-    indicatorStyle={{backgroundColor: '#191725'}}
+    indicatorStyle={{backgroundColor: EStyleSheet.value('$baseColor')}}
     style={styles.tabBar}
   />
 );
@@ -65,9 +65,12 @@ export default function AnimeTabView() {
 const styles = EStyleSheet.create({
   scene: {
     flex: 1,
-    backgroundColor: '#191725',
+    backgroundColor: '$baseColor',
   },
   tabBar: {
-    backgroundColor: '#191725',
+    backgroundColor: '$baseColor',
+  },
+  tabStyles: {
+    width: 130,
   },
 });

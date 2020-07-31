@@ -5,6 +5,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Discover from '../Screens/Discover';
 import HomeStack from './HomeStack';
+import EStyleSheet from 'react-native-extended-stylesheet';
 
 //import {Ionicons, AntDesign, EvilIcons} from 'react-native-vector-icons';
 const Tabs = createBottomTabNavigator();
@@ -30,12 +31,12 @@ const AppTabs = () => {
           },
         })}
         tabBarOptions={{
-          activeTintColor: 'tomato',
+          activeTintColor: EStyleSheet.value('$spcColor'),
           inactiveTintColor: 'gray',
-
+          keyboardHidesTabBar: true,
           showLabel: false,
           style: {
-            backgroundColor: '#191725',
+            backgroundColor: EStyleSheet.value('$baseColor'),
             borderTopWidth: 0,
             // shadowOffset: {width: 0, height: 4},
             // shadowOpacity: 0.9,

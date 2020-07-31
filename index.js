@@ -12,6 +12,8 @@ EStyleSheet.build({
   // always call EStyleSheet.build() even if you don't use global variables!
   $textColor: '#0275d8',
   $rem: deviceWidth / 380,
+  $baseColor: '#292B3A',
+  $spcColor: '#FF6160',
 });
 
 AppRegistry.registerComponent(appName, () => App);

@@ -24,26 +24,24 @@ const HomeSlider = React.memo(
 
     const renderItem = ({item}) => {
       return (
-        <View>
-          <View style={styles.imageContainer}>
-            <TouchableOpacity
-              onPress={() => {
-                dispatch({type: 'CURRENT_ANIME', payload: item.id});
-                navigation.navigate('AnimeStacks');
-              }}>
-              <Image
-                source={{uri: item.coverImage.medium}}
-                style={styles.imageStyle}
-                resizeMode="contain"
-              />
-            </TouchableOpacity>
-          </View>
+        <TouchableOpacity
+          onPress={() => {
+            dispatch({type: 'CURRENT_ANIME', payload: item.id});
+            console.log();
+            navigation.navigate('AnimeStacks');
+          }}>
+          <Image
+            source={{uri: item.coverImage.large}}
+            style={styles.imageStyle}
+            resizeMode="cover"
+          />
+
           <View style={styles.titleContainer}>
             <Text style={styles.titleStyle}>
               {shortAnimeName(item.title.userPreferred, 20)}
             </Text>
           </View>
-        </View>
+        </TouchableOpacity>
       );
     };
 
@@ -73,39 +71,35 @@ const HomeSlider = React.memo(
 const styles = EStyleSheet.create({
   propName: {
     color: 'white',
-    fontSize: '22rem',
-    marginLeft: deviceWidth * 0.04,
-    fontFamily: 'Lato-Regular',
-    marginBottom: deviceWidth * 0.04,
-    marginTop: deviceWidth * 0.04,
+    fontSize: '20rem',
+    // marginLeft: deviceWidth * 0.04,
+    marginLeft: '15rem',
+    fontFamily: 'Roboto-Bold',
+    marginBottom: '15rem',
+    marginTop: '15rem',
   },
   imageStyle: {
-    //width: 125,
-    //height: 150,
-    width: deviceWidth * 0.314,
-    height: deviceHeight * 0.19,
-
-    borderRadius: 4,
+    // width: '88rem',
+    height: '124rem',
+    aspectRatio: 0.8,
+    marginLeft: '15rem',
+    borderRadius: 10,
   },
   imageViewContainer: {
     justifyContent: 'center',
   },
   titleStyle: {
-    //flexShrink: 1,
     fontSize: '12.5rem',
     opacity: 0.8,
     marginTop: deviceHeight * 0.008,
     marginLeft: deviceWidth * 0.04,
+    marginBottom: '25rem',
     color: 'rgba(255, 255, 255, 0.9)',
     fontFamily: 'Roboto-Bold',
-    //color: 'white',
   },
   titleContainer: {
-    //backgroundColor: 'blue',
     width: deviceWidth * 0.28,
-    //width: 120,
   },
-  imageContainer: {},
 });
 
 export default HomeSlider;
