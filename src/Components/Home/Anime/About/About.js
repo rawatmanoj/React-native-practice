@@ -32,7 +32,7 @@ export default function About() {
                     <Button
                       key={i}
                       buttonStyle={{
-                        backgroundColor: '#58596B',
+                        backgroundColor: EStyleSheet.value('$shadeColor'),
                         margin: 4,
                       }}
                       title={genre}
@@ -47,7 +47,10 @@ export default function About() {
                 return (
                   <Button
                     key={i}
-                    buttonStyle={{backgroundColor: '#58596B', margin: 4}}
+                    buttonStyle={{
+                      backgroundColor: EStyleSheet.value('$shadeColor'),
+                      margin: 4,
+                    }}
                     title={studio.name}
                   />
                 );

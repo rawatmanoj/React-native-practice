@@ -45,7 +45,7 @@ const AnimeInfoScreen = () => {
             style={styles.imageBackgroundStyle}
             resizeMode="cover">
             <LinearGradient
-              colors={['transparent', '#292B3A']}
+              colors={['transparent', '#2D2D2D']}
               start={{x: 0.5, y: 0.5}}
               style={styles.container1}></LinearGradient>
           </ImageBackground>

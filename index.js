@@ -10,10 +10,11 @@ import {deviceWidth} from './src/api/Constants';
 
 EStyleSheet.build({
   // always call EStyleSheet.build() even if you don't use global variables!
-  $textColor: '#0275d8',
+  $textColor: 'white',
   $rem: deviceWidth / 380,
-  $baseColor: '#292B3A',
-  $spcColor: '#FF6160',
+  $baseColor: '#2D2D2D',
+  $spcColor: '#F27F24',
+  $shadeColor: '#393939',
 });
 
 AppRegistry.registerComponent(appName, () => App);

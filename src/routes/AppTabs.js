@@ -22,7 +22,7 @@ const AppTabs = () => {
             if (route.name === 'Home') {
               iconName = 'home';
               return <AntDesign name={'home'} size={size} color={color} />;
-            } else if (route.name === 'Search') {
+            } else if (route.name === 'Discover') {
               return <Ionicons name={'flask'} size={size} color={color} />;
             }
 
@@ -46,7 +46,7 @@ const AppTabs = () => {
           },
         }}>
         <Tabs.Screen name="Home" component={HomeStack} />
-        <Tabs.Screen name="Search" component={Discover} />
+        <Tabs.Screen name="Discover" component={Discover} />
       </Tabs.Navigator>
     </NavigationContainer>
   );

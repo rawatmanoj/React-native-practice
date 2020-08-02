@@ -1,15 +1,24 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {useEffect, useState} from 'react';
-import {View, Text, FlatList, TouchableOpacity} from 'react-native';
+import React, {useEffect, useState, useCallback} from 'react';
+import {
+  View,
+  Text,
+  FlatList,
+  TouchableOpacity,
+  BackHandler,
+} from 'react-native';
 import {SearchBar, Image} from 'react-native-elements';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {useNavigation} from '@react-navigation/native';
+//import {u} from "@react-navigation/bottom-tabs"
 import {searchAnime} from '../api/apicalls';
 import {useDispatch, useSelector} from 'react-redux';
 
 import {shortAnimeName} from '../api/utils';
 import {deviceWidth, deviceHeight} from '../api/Constants';
+import {NavigationActions} from 'react-navigation';
+import {CommonActions} from '@react-navigation/native';
 
 export default function SearchScreen() {
   const [value, setValue] = useState('');
@@ -17,21 +26,36 @@ export default function SearchScreen() {
   const dispatch = useDispatch();
   const anime = useSelector((state) => state.getAnime);
   const navigate = useNavigation();
+  const handleValidateClose = useCallback(() => {
+    // navigate.reset();
+    navigate.goBack();
+
+    dispatch({
+      type: 'SEARCH',
+      payload: '',
+    });
+    return true;
+  }, [dispatch, navigate]);
   useEffect(() => {
+    const handler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      handleValidateClose,
+    );
     const fetchAnime = async () => {
       const searchresult = await searchAnime(anime.search, 'ANIME');
       setResult(searchresult.Page.media);
     };
 
     fetchAnime();
-  }, [anime.search]);
+    return () => handler.remove();
+  }, [anime.search, handleValidateClose]);
 
   const renderItem = ({item}) => {
     return (
       <TouchableOpacity
         onPress={() => {
           dispatch({type: 'CURRENT_ANIME', payload: item.id});
-          navigate.navigate('AnimeStacks');
+          navigate.navigate('AnimeInfoScreen');
           // console.log(navigate);
         }}>
         <Image
@@ -131,7 +155,7 @@ const styles = EStyleSheet.create({
     paddingTop: '55rem',
     flex: 1,
     paddingBottom: 100,
-    backgroundColor: 'red',
+    backgroundColor: '#242634',
     width: deviceWidth,
     paddingLeft: '10rem',
   },

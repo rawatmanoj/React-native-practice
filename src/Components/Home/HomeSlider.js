@@ -27,8 +27,8 @@ const HomeSlider = React.memo(
         <TouchableOpacity
           onPress={() => {
             dispatch({type: 'CURRENT_ANIME', payload: item.id});
-            console.log();
-            navigation.navigate('AnimeStacks');
+            // navigation.navigate('AnimeInfoScreen');
+            navigation.push('AnimeInfoScreen');
           }}>
           <Image
             source={{uri: item.coverImage.large}}
