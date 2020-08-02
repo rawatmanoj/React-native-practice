@@ -39,38 +39,49 @@ export default function Discover() {
           </TouchableHighlight>
         </View>
         <View style={styles.imagesContainer}>
-          <ImageBackground
-            source={require('../../images/mhaextralarge.jpg')}
-            style={styles.imageBackgroundStyle}
-            resizeMode="cover">
-            <View style={styles.textContainer}>
-              <Text style={styles.textStyles}>Anime</Text>
-            </View>
-          </ImageBackground>
-          <ImageBackground
-            source={require('../../images/kiminonawa.png')}
-            style={[styles.imageBackgroundStyle]}
-            resizeMode="cover">
-            <View style={styles.textContainer}>
-              <Text style={styles.textStyles}>Movies</Text>
-            </View>
-          </ImageBackground>
-          <ImageBackground
-            source={require('../../images/mhabannerimage.jpg')}
-            style={styles.imageBackgroundStyle}
-            resizeMode="cover">
-            <View style={styles.textContainer}>
-              <Text style={styles.textStyles}>Characters</Text>
-            </View>
-          </ImageBackground>
-          <ImageBackground
-            source={require('../../images/onepunchextra.jpg')}
-            style={styles.imageBackgroundStyle}
-            resizeMode="cover">
-            <View style={styles.textContainer}>
-              <Text style={styles.textStyles}>Manga</Text>
-            </View>
-          </ImageBackground>
+          <TouchableHighlight
+            onPress={() => {
+              navigation.navigate('DiscoverAnime');
+            }}>
+            <ImageBackground
+              source={require('../../images/mhaextralarge.jpg')}
+              style={styles.imageBackgroundStyle}
+              resizeMode="cover">
+              <View style={styles.textContainer}>
+                <Text style={styles.textStyles}>Anime</Text>
+              </View>
+            </ImageBackground>
+          </TouchableHighlight>
+          <TouchableHighlight>
+            <ImageBackground
+              source={require('../../images/kiminonawa.png')}
+              style={[styles.imageBackgroundStyle]}
+              resizeMode="cover">
+              <View style={styles.textContainer}>
+                <Text style={styles.textStyles}>Movies</Text>
+              </View>
+            </ImageBackground>
+          </TouchableHighlight>
+          <TouchableHighlight>
+            <ImageBackground
+              source={require('../../images/mhabannerimage.jpg')}
+              style={styles.imageBackgroundStyle}
+              resizeMode="cover">
+              <View style={styles.textContainer}>
+                <Text style={styles.textStyles}>Characters</Text>
+              </View>
+            </ImageBackground>
+          </TouchableHighlight>
+          <TouchableHighlight>
+            <ImageBackground
+              source={require('../../images/onepunchextra.jpg')}
+              style={styles.imageBackgroundStyle}
+              resizeMode="cover">
+              <View style={styles.textContainer}>
+                <Text style={styles.textStyles}>Manga</Text>
+              </View>
+            </ImageBackground>
+          </TouchableHighlight>
         </View>
       </View>
     </View>

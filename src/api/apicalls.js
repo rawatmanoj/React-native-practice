@@ -1,4 +1,3 @@
-import axios from 'axios';
 export const TopAnime = async (type = 'ANIME', sortType, format) => {
   let query = `
 {

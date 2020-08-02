@@ -3,7 +3,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import Discover from '../Screens/Discover';
+import DiscoverStack from '../routes/DiscoverStack';
 import HomeStack from './HomeStack';
 import EStyleSheet from 'react-native-extended-stylesheet';
 
@@ -22,7 +22,7 @@ const AppTabs = () => {
             if (route.name === 'Home') {
               iconName = 'home';
               return <AntDesign name={'home'} size={size} color={color} />;
-            } else if (route.name === 'Discover') {
+            } else if (route.name === 'DiscoverStack') {
               return <Ionicons name={'flask'} size={size} color={color} />;
             }
 
@@ -46,7 +46,7 @@ const AppTabs = () => {
           },
         }}>
         <Tabs.Screen name="Home" component={HomeStack} />
-        <Tabs.Screen name="Discover" component={Discover} />
+        <Tabs.Screen name="DiscoverStack" component={DiscoverStack} />
       </Tabs.Navigator>
     </NavigationContainer>
   );
