@@ -36,8 +36,11 @@ const renderTabBar = (props) => (
 
 const initialLayout = {width: Dimensions.get('window').width};
 
-export default function AnimeTabView() {
-  console.log('animeTabView');
+export default function AnimeTabView(props) {
+  console.log(props);
+  const format = props.route.params.format;
+  const type = props.route.params.type;
+
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
     {key: 'NowPlaying', title: 'Now Playing'},
@@ -51,36 +54,36 @@ export default function AnimeTabView() {
       case 'NowPlaying':
         return (
           <TabViewScreen
-            type={'ANIME'}
+            type={type}
             sortType={'POPULARITY_DESC'}
-            format={'TV'}
+            format={format}
             status={'RELEASING'}
           />
         );
       case 'UpComing':
         return (
           <TabViewScreen
-            type={'ANIME'}
+            type={type}
             sortType={'POPULARITY_DESC'}
-            format={'TV'}
+            format={format}
             status={'NOT_YET_RELEASED'}
           />
         );
       case 'Trending':
         return (
           <TabViewScreen
-            type={'ANIME'}
+            type={type}
             sortType={'TRENDING_DESC'}
-            format={'TV'}
+            format={format}
             status={'FINISHED'}
           />
         );
       case 'Popular':
         return (
           <TabViewScreen
-            type={'ANIME'}
+            type={type}
             sortType={'POPULARITY_DESC'}
-            format={'TV'}
+            format={format}
             status={'FINISHED'}
           />
         );

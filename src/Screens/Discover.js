@@ -1,18 +1,11 @@
 /* eslint-disable react/self-closing-comp */
 import * as React from 'react';
-import {
-  View,
-  StyleSheet,
-  Dimensions,
-  Text,
-  TouchableHighlight,
-  ImageBackground,
-} from 'react-native';
-import LinearGradient from 'react-native-linear-gradient';
+import {View, Text, TouchableHighlight, ImageBackground} from 'react-native';
+
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
+
 import EStyleSheet from 'react-native-extended-stylesheet';
-import {deviceHeight, deviceWidth} from '../api/Constants';
+import {deviceWidth} from '../api/Constants';
 import {useNavigation} from '@react-navigation/native';
 export default function Discover() {
   const navigation = useNavigation();
@@ -23,9 +16,7 @@ export default function Discover() {
           <Text style={styles.discover}>Discover</Text>
           <TouchableHighlight
             onPress={() => {
-              navigation.navigate('Home', {
-                screen: 'SearchScreen',
-              });
+              navigation.navigate('SearchScreen');
             }}>
             <View style={styles.inputContainer}>
               <Ionicons
@@ -41,7 +32,11 @@ export default function Discover() {
         <View style={styles.imagesContainer}>
           <TouchableHighlight
             onPress={() => {
-              navigation.navigate('DiscoverAnime');
+              navigation.navigate('DiscoverAnime', {
+                format: 'TV',
+                type: 'ANIME',
+                title: 'Anime',
+              });
             }}>
             <ImageBackground
               source={require('../../images/mhaextralarge.jpg')}
@@ -52,7 +47,14 @@ export default function Discover() {
               </View>
             </ImageBackground>
           </TouchableHighlight>
-          <TouchableHighlight>
+          <TouchableHighlight
+            onPress={() => {
+              navigation.navigate('DiscoverAnime', {
+                format: 'MOVIE',
+                type: 'ANIME',
+                title: 'Movie',
+              });
+            }}>
             <ImageBackground
               source={require('../../images/kiminonawa.png')}
               style={[styles.imageBackgroundStyle]}
@@ -62,7 +64,10 @@ export default function Discover() {
               </View>
             </ImageBackground>
           </TouchableHighlight>
-          <TouchableHighlight>
+          <TouchableHighlight
+            onPress={() => {
+              navigation.navigate('CharTabView');
+            }}>
             <ImageBackground
               source={require('../../images/mhabannerimage.jpg')}
               style={styles.imageBackgroundStyle}
@@ -72,7 +77,14 @@ export default function Discover() {
               </View>
             </ImageBackground>
           </TouchableHighlight>
-          <TouchableHighlight>
+          <TouchableHighlight
+            onPress={() => {
+              navigation.navigate('DiscoverAnime', {
+                format: 'MANGA',
+                type: 'MANGA',
+                title: 'Manga',
+              });
+            }}>
             <ImageBackground
               source={require('../../images/onepunchextra.jpg')}
               style={styles.imageBackgroundStyle}

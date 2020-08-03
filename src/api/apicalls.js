@@ -336,3 +336,61 @@ export const searchAnime = async (search, type) => {
   const res = await response.json();
   return res.data;
 };
+
+export const getCharInfo = async (id) => {
+  let query = `
+  {
+ 
+    Page(page: 1, perPage: 50) {
+      
+     characters(id:${id}) {
+       id
+      favourites
+      description(asHtml:true)
+      media(page:1,perPage: 1,sort:POPULARITY_DESC){
+        nodes{
+          title {
+            romaji
+            english
+            native
+            userPreferred
+          }
+          bannerImage
+        }
+      }
+      name {
+        first
+        last
+        full
+        native
+      }
+      image {
+        large
+        medium
+      }
+     }
+    }
+  }
+  
+  
+  
+  `;
+
+  // Define the config we'll need for our Api request
+  var url = 'https://graphql.anilist.co',
+    options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify({
+        query: query,
+        //variables: variables,
+      }),
+    };
+
+  const response = await fetch(url, options);
+  const res = await response.json();
+  return res.data;
+};

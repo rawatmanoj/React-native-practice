@@ -14,8 +14,8 @@ import {useNavigation} from '@react-navigation/native';
 
 import {useDispatch} from 'react-redux';
 
-import {shortAnimeName} from '../../api/utils';
-import {deviceWidth, deviceHeight} from '../../api/Constants';
+import {shortAnimeName} from '../../../api/utils';
+import {deviceWidth, deviceHeight} from '../../../api/Constants';
 
 export default function SearchScreen({result}) {
   const dispatch = useDispatch();

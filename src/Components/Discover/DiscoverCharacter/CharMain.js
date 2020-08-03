@@ -8,26 +8,14 @@ import {
   TouchableOpacity,
   ImageBackground,
 } from 'react-native';
-import {getChar} from '../../../../api/apicalls';
-import {useSelector, useDispatch} from 'react-redux';
+import {getChar} from '../../../api/Discoverapicalls/DiscoverApicall';
+import {useSelector} from 'react-redux';
 import EStyleSheet from 'react-native-extended-stylesheet';
+import {useDispatch} from 'react-redux';
 import {useNavigation} from '@react-navigation/native';
-export default function Characters() {
+export default function Characters({result}) {
   const navigation = useNavigation();
   const dispatch = useDispatch();
-  // const [state] = useContext(Context);
-  const [char, setChar] = useState(null);
-  const anime = useSelector((state) => state.getAnime);
-  useEffect(() => {
-    const fetchChar = async () => {
-      const characters = await getChar(anime.currentAnime);
-      setChar(characters.Media.characters.nodes);
-      console.log(characters);
-    };
-
-    fetchChar();
-  }, [anime.currentAnime]);
-
   const renderItem = ({item}) => {
     return (
       <TouchableOpacity
@@ -58,7 +46,7 @@ export default function Characters() {
     <SafeAreaView style={styles.container}>
       <FlatList
         showsHorizontalScrollIndicator={false}
-        data={char}
+        data={result}
         renderItem={renderItem}
         keyExtractor={(item) => {
           return item.id.toString();

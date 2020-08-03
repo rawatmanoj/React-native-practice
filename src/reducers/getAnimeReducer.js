@@ -3,6 +3,8 @@ const initialState = {
   token: 'yes',
   currentAnimeInfo: null,
   search: '',
+  char: null,
+  currentCharInfo: null,
 };
 
 const Reducer = (state = initialState, action) => {
@@ -26,6 +28,16 @@ const Reducer = (state = initialState, action) => {
       return {
         ...state,
         search: action.payload,
+      };
+    case 'CHAR':
+      return {
+        ...state,
+        char: action.payload,
+      };
+    case 'CURRENTCHARINFO':
+      return {
+        ...state,
+        currentCharInfo: action.payload,
       };
 
     default:

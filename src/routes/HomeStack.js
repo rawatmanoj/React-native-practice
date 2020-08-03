@@ -2,9 +2,10 @@ import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 
 import HomeScreen from '../Screens/HomeScreen';
-import AnimeStack from '../Screens/AnimeInfoScreen';
+
 import SearchScreen from '../Screens/SearchScreen';
 import AnimeInfoScreen from '../Screens/AnimeInfoScreen';
+import CharScreen from '../Screens/CharScreen';
 
 //import {createFluidNavigator} from 'react-navigation-fluid-transitions';
 const Stack = createStackNavigator();
@@ -13,7 +14,14 @@ const HomeStack = React.memo(() => {
   console.log('HomeStack');
 
   return (
-    <Stack.Navigator initialRouteName="HomeScreen">
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: true,
+        headerTransparent: true,
+        headerTintColor: 'white',
+        title: false,
+      }}
+      initialRouteName="HomeScreen">
       <Stack.Screen
         options={{headerShown: false}}
         name="HomeScreen"
@@ -29,6 +37,7 @@ const HomeStack = React.memo(() => {
         name="SearchScreen"
         component={SearchScreen}
       />
+      <Stack.Screen name="CharScreen" component={CharScreen} />
     </Stack.Navigator>
     // <Navigator />
   );

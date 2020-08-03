@@ -1,36 +1,38 @@
 /* eslint-disable react/self-closing-comp */
 import React, {useEffect} from 'react';
-import {View, Text, StatusBar, ImageBackground} from 'react-native';
+import {View, Text, StatusBar, ImageBackground, StyleSheet} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {Image} from 'react-native-elements';
 import {deviceHeight, deviceWidth} from '../api/Constants';
 import LinearGradient from 'react-native-linear-gradient';
 import {shortAnimeName} from '../api/utils';
-import AnimeTabView from '../Components/Home/Anime/TabView';
-import {getAnime} from '../api/apicalls';
+import {getCharInfo} from '../api/apicalls';
 import {useDispatch, useSelector} from 'react-redux';
 import EStyleSheet from 'react-native-extended-stylesheet';
-const AnimeInfoScreen = () => {
+import HTMLView from 'react-native-htmlview';
+import {ScrollView} from 'react-native-gesture-handler';
+const CharScreen = () => {
   const dispatch = useDispatch();
-  console.log('AnimeInfoSCreen');
+  console.log('CharScreen');
 
   const anime = useSelector((state) => state.getAnime);
 
   useEffect(() => {
+    // console.log(anime);
     const fetchData = async () => {
-      const animeInfo = await getAnime(anime.currentAnime);
+      const animeInfo = await getCharInfo(anime.char);
       console.log(animeInfo);
-
       dispatch({
-        type: 'CURRENT_ANIME_INFO',
-        payload: animeInfo.Media,
+        type: 'CURRENTCHARINFO',
+        payload: animeInfo.Page.characters[0],
       });
     };
 
     fetchData();
-  }, [anime.currentAnime, dispatch]);
+    // console.log(anime);
+  }, [anime.char, dispatch]);
 
-  return anime.currentAnimeInfo ? (
+  return anime.currentCharInfo ? (
     <View style={styles.pageContainer}>
       <View style={styles.animeContainer}>
         <StatusBar
@@ -41,7 +43,7 @@ const AnimeInfoScreen = () => {
 
         <View>
           <ImageBackground
-            source={{uri: anime.currentAnimeInfo.bannerImage}}
+            source={{uri: anime.currentCharInfo.media.nodes[0].bannerImage}}
             style={styles.imageBackgroundStyle}
             resizeMode="cover">
             <LinearGradient
@@ -51,7 +53,7 @@ const AnimeInfoScreen = () => {
           </ImageBackground>
           <View style={styles.smallImage}>
             <Image
-              source={{uri: anime.currentAnimeInfo.coverImage.large}}
+              source={{uri: anime.currentCharInfo.image.large}}
               style={styles.imageStyle}
               resizeMode="contain"></Image>
           </View>
@@ -60,43 +62,46 @@ const AnimeInfoScreen = () => {
         <View style={styles.lowerPart}>
           <View style={styles.animeNameView}>
             <Text style={styles.animeNameStyle}>
-              {shortAnimeName(anime.currentAnimeInfo.title.userPreferred, 30)}
+              {shortAnimeName(anime.currentCharInfo.name.full, 30)}
             </Text>
-            <Text style={styles.dateStyle}>
-              {anime.currentAnimeInfo.seasonYear
-                ? anime.currentAnimeInfo.seasonYear + ' | '
-                : null}
-
-              {anime.currentAnimeInfo.status}
+            <Text style={styles.charAnime}>
+              {anime.currentCharInfo.media.nodes[0].title.userPreferred}
             </Text>
           </View>
         </View>
-
-        <View style={styles.popularityContainer}>
-          <View style={styles.popularityIcon}>
-            <Ionicons
-              name={'heart'}
-              size={22}
-              color={EStyleSheet.value('$spcColor')}
+        <ScrollView>
+          <View style={styles.description}>
+            <HTMLView
+              value={anime.currentCharInfo.description}
+              stylesheet={htmlstyles}
             />
-            <Text style={styles.scoreStyles}>
-              {anime.currentAnimeInfo.averageScore
-                ? anime.currentAnimeInfo.averageScore.toFixed(0) + '%'
-                : '0%'}
-            </Text>
           </View>
-          <Text style={styles.rankStyles}>
-            Rank {anime.currentAnimeInfo.rankings[0].rank}
-          </Text>
-        </View>
+        </ScrollView>
       </View>
-      <AnimeTabView />
     </View>
   ) : null;
 };
 
-export default AnimeInfoScreen;
-
+export default CharScreen;
+const fontSize = '16rem';
+const htmlstyles = EStyleSheet.create({
+  p: {
+    color: 'white',
+    fontSize: fontSize,
+    fontFamily: 'Lato-Bold',
+    letterSpacing: '0.8rem',
+    lineHeight: '30rem',
+  },
+  strong: {
+    color: '#67687A',
+    fontFamily: 'Lato-Bold',
+    fontSize: '22rem',
+  },
+  li: {
+    color: 'white',
+    fontSize: fontSize,
+  },
+});
 const styles = EStyleSheet.create({
   imageBackgroundStyle: {
     width: deviceWidth,
@@ -166,7 +171,16 @@ const styles = EStyleSheet.create({
     // position: 'absolute',
   },
   animeContainer: {
+    flex: 1,
     alignItems: 'center',
     backgroundColor: '$baseColor',
+  },
+  charAnime: {
+    color: '$spcColor',
+  },
+  description: {
+    flex: 1,
+    marginLeft: '20rem',
+    marginTop: '40rem',
   },
 });

@@ -3,7 +3,7 @@ import {StyleSheet, BackHandler} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {useDispatch} from 'react-redux';
 import {getDiscover} from '../../../api/Discoverapicalls/DiscoverApicall';
-import DiscoverMain from '../DiscoverMain';
+import DiscoverMain from './DiscoverMain';
 export default function NowPlaying({type, sortType, format, status}) {
   const dispatch = useDispatch();
   const navigate = useNavigation();
