@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import {StyleSheet, Text, View, Dimensions} from 'react-native';
+import {Text, Dimensions} from 'react-native';
 import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
 import About from './About/About';
 import Characters from '../Anime/Characters/Characters';
@@ -35,7 +35,7 @@ const renderTabBar = (props) => (
 
 const initialLayout = {width: Dimensions.get('window').width};
 
-export default function AnimeTabView() {
+export default React.memo(function AnimeTabView() {
   console.log('animeTabView');
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
@@ -53,6 +53,7 @@ export default function AnimeTabView() {
   });
   return (
     <TabView
+      lazy={true}
       navigationState={{index, routes}}
       renderScene={renderScene}
       onIndexChange={setIndex}
@@ -60,7 +61,7 @@ export default function AnimeTabView() {
       renderTabBar={renderTabBar}
     />
   );
-}
+});
 
 const styles = EStyleSheet.create({
   scene: {

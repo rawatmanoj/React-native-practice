@@ -10,6 +10,8 @@ target 'reactinsta' do
 
   pod 'RNSharedElement', :path => '../node_modules/react-native-shared-element'
 
+  pod 'react-native-safe-area-context', :path => '../node_modules/react-native-safe-area-context'
+
   target 'reactinstaTests' do
     inherit! :complete
     # Pods for testing

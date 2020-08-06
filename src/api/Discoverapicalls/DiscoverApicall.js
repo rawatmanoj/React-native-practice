@@ -4,7 +4,6 @@ export const getDiscover = async (
   format = 'TV',
   status = 'RELEASING',
 ) => {
-  console.log(type, sortType, format, status);
   let query = `
   {
  

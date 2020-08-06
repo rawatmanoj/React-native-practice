@@ -12,7 +12,8 @@ import EStyleSheet from 'react-native-extended-stylesheet';
 
 import {getReviews} from '../../../../api/apicalls';
 import {useSelector} from 'react-redux';
-export default function Characters() {
+export default React.memo(function Review() {
+  console.log('review');
   const [review, setReview] = useState(null);
   const anime = useSelector((state) => state.getAnime);
   useEffect(() => {
@@ -65,7 +66,7 @@ export default function Characters() {
       />
     </SafeAreaView>
   );
-}
+});
 
 const styles = EStyleSheet.create({
   scene: {},

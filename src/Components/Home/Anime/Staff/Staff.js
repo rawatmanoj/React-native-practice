@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react';
-import {Image} from 'react-native-elements';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import {
   Text,
@@ -12,8 +11,8 @@ import {
 
 import {getStaff} from '../../../../api/apicalls';
 import {useSelector} from 'react-redux';
-export default function Characters() {
-  console.log('characters');
+export default React.memo(function Staff() {
+  console.log('staff');
   // const [state] = useContext(Context);
   const [staff, setStaff] = useState(null);
   const anime = useSelector((state) => state.getAnime);
@@ -58,7 +57,7 @@ export default function Characters() {
       />
     </SafeAreaView>
   );
-}
+});
 
 const styles = EStyleSheet.create({
   scene: {},

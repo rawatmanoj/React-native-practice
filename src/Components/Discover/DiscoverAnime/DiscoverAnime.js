@@ -36,8 +36,8 @@ const renderTabBar = (props) => (
 
 const initialLayout = {width: Dimensions.get('window').width};
 
-export default function AnimeTabView(props) {
-  console.log(props);
+export default React.memo(function DiscoverAnime(props) {
+  console.log('DiscoverAnime');
   const format = props.route.params.format;
   const type = props.route.params.type;
 
@@ -101,7 +101,7 @@ export default function AnimeTabView(props) {
       renderTabBar={renderTabBar}
     />
   );
-}
+});
 
 const styles = EStyleSheet.create({
   scene: {

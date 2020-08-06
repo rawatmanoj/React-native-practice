@@ -12,7 +12,7 @@ import {deviceWidth, deviceHeight} from '../api/Constants';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Entypo from 'react-native-vector-icons/Entypo';
 import {TopAnime} from '../api/apicalls';
-
+import {SafeAreaView} from 'react-native-safe-area-context';
 import {useNavigation} from '@react-navigation/native';
 
 const HomeScreen = React.memo(() => {
@@ -52,7 +52,7 @@ const HomeScreen = React.memo(() => {
     fetchData();
   }, []);
   return (
-    <View style={styles.homeContainer}>
+    <SafeAreaView style={styles.homeContainer}>
       <View style={styles.navbarConatiner}>
         <Text style={styles.appName}>animenation</Text>
         <View style={styles.searchContainer}>
@@ -89,7 +89,7 @@ const HomeScreen = React.memo(() => {
           <HomeSlider name={'Top movie'} compProp={state.top.topMovie} />
         </ScrollView>
       ) : null}
-    </View>
+    </SafeAreaView>
   );
 });
 

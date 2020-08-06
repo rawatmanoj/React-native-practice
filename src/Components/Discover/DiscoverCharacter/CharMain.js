@@ -1,19 +1,17 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {
-  StyleSheet,
   Text,
   View,
-  SafeAreaView,
   FlatList,
   TouchableOpacity,
   ImageBackground,
 } from 'react-native';
-import {getChar} from '../../../api/Discoverapicalls/DiscoverApicall';
-import {useSelector} from 'react-redux';
+import {SafeAreaView} from 'react-native-safe-area-context';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import {useDispatch} from 'react-redux';
 import {useNavigation} from '@react-navigation/native';
 export default function Characters({result}) {
+  console.log('charMain');
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const renderItem = ({item}) => {
@@ -72,7 +70,7 @@ const styles = EStyleSheet.create({
   imageStyles: {
     width: '68rem',
     height: '68rem',
-    borderRadius: 69 / 2,
+    borderRadius: '35rem',
     overflow: 'hidden',
   },
   fullNameStyles: {

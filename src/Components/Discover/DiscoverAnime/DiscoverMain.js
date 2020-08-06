@@ -1,12 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {useEffect, useState, useCallback} from 'react';
-import {
-  View,
-  Text,
-  FlatList,
-  TouchableOpacity,
-  BackHandler,
-} from 'react-native';
+import React from 'react';
+import {View, Text, FlatList, TouchableOpacity} from 'react-native';
 import {Image} from 'react-native-elements';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import {useNavigation} from '@react-navigation/native';
@@ -17,7 +11,8 @@ import {useDispatch} from 'react-redux';
 import {shortAnimeName} from '../../../api/utils';
 import {deviceWidth, deviceHeight} from '../../../api/Constants';
 
-export default function SearchScreen({result}) {
+export default React.memo(function DiscoverMain({result}) {
+  console.log('DiscoverMain');
   const dispatch = useDispatch();
 
   const navigate = useNavigation();
@@ -57,7 +52,7 @@ export default function SearchScreen({result}) {
       />
     </View>
   );
-}
+});
 
 const styles = EStyleSheet.create({
   pageContainer: {

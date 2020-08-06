@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {useEffect, useState, useCallback} from 'react';
+import React, {useState, useCallback} from 'react';
 import {
   View,
   Text,
@@ -13,42 +13,29 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import {useNavigation} from '@react-navigation/native';
 //import {u} from "@react-navigation/bottom-tabs"
 import {searchAnime} from '../api/apicalls';
-import {useDispatch, useSelector} from 'react-redux';
+import {useDispatch} from 'react-redux';
 
 import {shortAnimeName} from '../api/utils';
 import {deviceWidth, deviceHeight} from '../api/Constants';
-import {NavigationActions} from 'react-navigation';
-import {CommonActions} from '@react-navigation/native';
 
-export default function SearchScreen() {
+export default React.memo(function SearchScreen() {
+  console.log('searchScreen');
   const [value, setValue] = useState('');
   const [result, setResult] = useState(null);
   const dispatch = useDispatch();
-  const anime = useSelector((state) => state.getAnime);
   const navigate = useNavigation();
   const handleValidateClose = useCallback(() => {
-    // navigate.reset();
     navigate.goBack();
 
-    dispatch({
-      type: 'SEARCH',
-      payload: '',
-    });
     return true;
-  }, [dispatch, navigate]);
-  useEffect(() => {
-    const handler = BackHandler.addEventListener(
-      'hardwareBackPress',
-      handleValidateClose,
-    );
-    const fetchAnime = async () => {
-      const searchresult = await searchAnime(anime.search, 'ANIME');
-      setResult(searchresult.Page.media);
-    };
+  }, [navigate]);
 
-    fetchAnime();
-    return () => handler.remove();
-  }, [anime.search, handleValidateClose]);
+  BackHandler.addEventListener('hardwareBackPress', handleValidateClose);
+
+  const fetchAnime = async (search) => {
+    const searchresult = await searchAnime(search, 'ANIME');
+    setResult(searchresult.Page.media);
+  };
 
   const renderItem = ({item}) => {
     return (
@@ -83,10 +70,8 @@ export default function SearchScreen() {
           }}
           onSubmitEditing={(event) => {
             console.log(event.nativeEvent.text);
-            dispatch({
-              type: 'SEARCH',
-              payload: event.nativeEvent.text,
-            });
+
+            fetchAnime(event.nativeEvent.text);
           }}
           value={value}
           underlineColorAndroid={EStyleSheet.value('$baseColor')}
@@ -98,10 +83,6 @@ export default function SearchScreen() {
               color={'grey'}
               onPress={() => {
                 navigate.goBack();
-                dispatch({
-                  type: 'SEARCH',
-                  payload: '',
-                });
               }}
             />
           }
@@ -127,7 +108,7 @@ export default function SearchScreen() {
       />
     </View>
   );
-}
+});
 
 const styles = EStyleSheet.create({
   pageContainer: {

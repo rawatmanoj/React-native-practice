@@ -1,9 +1,11 @@
 import React, {useEffect, useCallback, useState} from 'react';
-import {StyleSheet, BackHandler, View, Text} from 'react-native';
+import {StyleSheet, BackHandler} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {getCharacters} from '../../../api/Discoverapicalls/DiscoverApicall';
 import CharMain from '../DiscoverCharacter/CharMain';
-export default function NowPlaying() {
+
+export default function CharTabView() {
+  console.log('charTabView');
   const navigate = useNavigation();
   const [result, setResult] = useState(null);
   const handleValidateClose = useCallback(() => {

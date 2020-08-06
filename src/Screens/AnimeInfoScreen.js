@@ -10,7 +10,7 @@ import AnimeTabView from '../Components/Home/Anime/TabView';
 import {getAnime} from '../api/apicalls';
 import {useDispatch, useSelector} from 'react-redux';
 import EStyleSheet from 'react-native-extended-stylesheet';
-const AnimeInfoScreen = () => {
+const AnimeInfoScreen = React.memo(() => {
   const dispatch = useDispatch();
   console.log('AnimeInfoSCreen');
 
@@ -93,7 +93,7 @@ const AnimeInfoScreen = () => {
       <AnimeTabView />
     </View>
   ) : null;
-};
+});
 
 export default AnimeInfoScreen;
 

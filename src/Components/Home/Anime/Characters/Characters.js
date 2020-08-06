@@ -1,18 +1,18 @@
 import React, {useEffect, useState} from 'react';
 import {
-  StyleSheet,
   Text,
   View,
-  SafeAreaView,
   FlatList,
   TouchableOpacity,
   ImageBackground,
 } from 'react-native';
 import {getChar} from '../../../../api/apicalls';
+import {SafeAreaView} from 'react-native-safe-area-context';
 import {useSelector, useDispatch} from 'react-redux';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import {useNavigation} from '@react-navigation/native';
-export default function Characters() {
+export default React.memo(function Characters() {
+  console.log('characters');
   const navigation = useNavigation();
   const dispatch = useDispatch();
   // const [state] = useContext(Context);
@@ -22,7 +22,6 @@ export default function Characters() {
     const fetchChar = async () => {
       const characters = await getChar(anime.currentAnime);
       setChar(characters.Media.characters.nodes);
-      console.log(characters);
     };
 
     fetchChar();
@@ -32,11 +31,11 @@ export default function Characters() {
     return (
       <TouchableOpacity
         onPress={() => {
-          navigation.navigate('CharScreen');
           dispatch({
             type: 'CHAR',
             payload: item.id,
           });
+          navigation.navigate('CharScreen');
         }}>
         <View style={styles.imageContainer}>
           <View>
@@ -66,7 +65,7 @@ export default function Characters() {
       />
     </SafeAreaView>
   );
-}
+});
 
 const styles = EStyleSheet.create({
   scene: {},

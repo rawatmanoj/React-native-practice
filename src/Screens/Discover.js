@@ -8,6 +8,7 @@ import EStyleSheet from 'react-native-extended-stylesheet';
 import {deviceWidth} from '../api/Constants';
 import {useNavigation} from '@react-navigation/native';
 export default function Discover() {
+  console.log('discover');
   const navigation = useNavigation();
   return (
     <View style={styles.scene}>

@@ -1,15 +1,15 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import {StyleSheet, Text, View, ScrollView} from 'react-native';
-
+import {Text, View, ScrollView} from 'react-native';
 import {Button} from 'react-native-elements';
 import {deviceWidth} from '../../../../api/Constants';
 import {filterString} from '../../../../api/utils';
 import {Description} from '../../../../api/Description';
 import {useSelector} from 'react-redux';
 import EStyleSheet from 'react-native-extended-stylesheet';
-export default function About() {
-  // const [state] = useContext(Context);
+export default React.memo(function About() {
+  console.log('about');
+
   const anime = useSelector((state) => state.getAnime);
 
   return (
@@ -126,7 +126,7 @@ export default function About() {
       ) : null}
     </ScrollView>
   );
-}
+});
 
 const styles = EStyleSheet.create({
   scene: {
