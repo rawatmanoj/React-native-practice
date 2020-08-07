@@ -6,10 +6,9 @@ import {
   SafeAreaView,
   View,
   FlatList,
-  StyleSheet,
-  StatusBar,
   Text,
   TouchableOpacity,
+  ActivityIndicator,
 } from 'react-native';
 import {deviceHeight, deviceWidth} from '../../api/Constants';
 import {useNavigation} from '@react-navigation/native';
@@ -34,6 +33,12 @@ const HomeSlider = React.memo(
             source={{uri: item.coverImage.large}}
             style={styles.imageStyle}
             resizeMode="cover"
+            PlaceholderContent={
+              <ActivityIndicator color={EStyleSheet.value('$spcColor')} />
+            }
+            placeholderStyle={{
+              backgroundColor: EStyleSheet.value('$shadeColor'),
+            }}
           />
 
           <View style={styles.titleContainer}>

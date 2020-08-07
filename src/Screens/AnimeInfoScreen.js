@@ -1,6 +1,12 @@
 /* eslint-disable react/self-closing-comp */
-import React, {useEffect} from 'react';
-import {View, Text, StatusBar, ImageBackground} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {
+  View,
+  Text,
+  StatusBar,
+  ImageBackground,
+  ActivityIndicator,
+} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {Image} from 'react-native-elements';
 import {deviceHeight, deviceWidth} from '../api/Constants';
@@ -10,6 +16,7 @@ import AnimeTabView from '../Components/Home/Anime/TabView';
 import {getAnime} from '../api/apicalls';
 import {useDispatch, useSelector} from 'react-redux';
 import EStyleSheet from 'react-native-extended-stylesheet';
+
 const AnimeInfoScreen = React.memo(() => {
   const dispatch = useDispatch();
   console.log('AnimeInfoSCreen');
@@ -19,6 +26,7 @@ const AnimeInfoScreen = React.memo(() => {
   useEffect(() => {
     const fetchData = async () => {
       const animeInfo = await getAnime(anime.currentAnime);
+
       console.log(animeInfo);
 
       dispatch({
@@ -40,7 +48,13 @@ const AnimeInfoScreen = React.memo(() => {
         />
 
         <View>
-          <ImageBackground
+          <Image
+            placeholderStyle={{
+              backgroundColor: EStyleSheet.value('$shadeColor'),
+            }}
+            PlaceholderContent={
+              <ActivityIndicator color={EStyleSheet.value('$spcColor')} />
+            }
             source={{uri: anime.currentAnimeInfo.bannerImage}}
             style={styles.imageBackgroundStyle}
             resizeMode="cover">
@@ -48,12 +62,19 @@ const AnimeInfoScreen = React.memo(() => {
               colors={['transparent', '#2D2D2D']}
               start={{x: 0.5, y: 0.5}}
               style={styles.container1}></LinearGradient>
-          </ImageBackground>
+          </Image>
           <View style={styles.smallImage}>
             <Image
               source={{uri: anime.currentAnimeInfo.coverImage.large}}
               style={styles.imageStyle}
-              resizeMode="contain"></Image>
+              resizeMode="contain"
+              PlaceholderContent={
+                <ActivityIndicator color={EStyleSheet.value('$spcColor')} />
+              }
+              placeholderStyle={{
+                backgroundColor: EStyleSheet.value('$shadeColor'),
+              }}
+            />
           </View>
         </View>
 
