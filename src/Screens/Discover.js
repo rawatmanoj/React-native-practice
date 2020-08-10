@@ -1,6 +1,12 @@
 /* eslint-disable react/self-closing-comp */
 import * as React from 'react';
-import {View, Text, TouchableHighlight, ImageBackground} from 'react-native';
+import {
+  View,
+  Text,
+  TouchableHighlight,
+  ImageBackground,
+  TouchableOpacity,
+} from 'react-native';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
@@ -30,71 +36,18 @@ export default function Discover() {
             </View>
           </TouchableHighlight>
         </View>
-        <View style={styles.imagesContainer}>
-          <TouchableHighlight
+        <View>
+          <TouchableOpacity
             onPress={() => {
-              navigation.navigate('DiscoverAnime', {
-                format: 'TV',
-                type: 'ANIME',
-                title: 'Anime',
+              navigation.navigate('AnimeInfoScreen', {
+                params: {data: 'discover'},
               });
+              // navigation.push('AnimeInfoScreen');
             }}>
-            <ImageBackground
-              source={require('../../images/mhaextralarge.jpg')}
-              style={styles.imageBackgroundStyle}
-              resizeMode="cover">
-              <View style={styles.textContainer}>
-                <Text style={styles.textStyles}>Anime</Text>
-              </View>
-            </ImageBackground>
-          </TouchableHighlight>
-          <TouchableHighlight
-            onPress={() => {
-              navigation.navigate('DiscoverAnime', {
-                format: 'MOVIE',
-                type: 'ANIME',
-                title: 'Movie',
-              });
-            }}>
-            <ImageBackground
-              source={require('../../images/kiminonawa.png')}
-              style={[styles.imageBackgroundStyle]}
-              resizeMode="cover">
-              <View style={styles.textContainer}>
-                <Text style={styles.textStyles}>Movies</Text>
-              </View>
-            </ImageBackground>
-          </TouchableHighlight>
-          <TouchableHighlight
-            onPress={() => {
-              navigation.navigate('CharTabView');
-            }}>
-            <ImageBackground
-              source={require('../../images/mhabannerimage.jpg')}
-              style={styles.imageBackgroundStyle}
-              resizeMode="cover">
-              <View style={styles.textContainer}>
-                <Text style={styles.textStyles}>Characters</Text>
-              </View>
-            </ImageBackground>
-          </TouchableHighlight>
-          <TouchableHighlight
-            onPress={() => {
-              navigation.navigate('DiscoverAnime', {
-                format: 'MANGA',
-                type: 'MANGA',
-                title: 'Manga',
-              });
-            }}>
-            <ImageBackground
-              source={require('../../images/onepunchextra.jpg')}
-              style={styles.imageBackgroundStyle}
-              resizeMode="cover">
-              <View style={styles.textContainer}>
-                <Text style={styles.textStyles}>Manga</Text>
-              </View>
-            </ImageBackground>
-          </TouchableHighlight>
+            <View>
+              <Text>discover</Text>
+            </View>
+          </TouchableOpacity>
         </View>
       </View>
     </View>

@@ -19,40 +19,8 @@ const HomeScreen = React.memo(() => {
   const navigation = useNavigation();
   console.log('HomeScreen');
 
-  const [state, setState] = useState({
-    top: {
-      topAnime: null,
-      topManga: null,
-      upcoming: null,
-      topMovie: null,
-      airing: null,
-      trendingAnime: null,
-      trendingMovie: null,
-    },
-  });
-  useEffect(() => {
-    const fetchData = async () => {
-      const topAnime = await TopAnime('ANIME', 'SCORE_DESC', 'TV');
-      const topMovie = await TopAnime('ANIME', 'SCORE_DESC', 'MOVIE');
-      const topManga = await TopAnime('MANGA', 'FAVOURITES_DESC', 'MANGA');
-      const trendingAnime = await TopAnime('ANIME', 'TRENDING_DESC', 'TV');
-      const trendingMovie = await TopAnime('ANIME', 'TRENDING_DESC', 'MOVIE');
-      console.log(topAnime);
-      setState({
-        top: {
-          topAnime: topAnime,
-          topManga: topManga,
-          topMovie: topMovie,
-          trendingAnime: trendingAnime,
-          trendingMovie: trendingMovie,
-        },
-      });
-    };
-
-    fetchData();
-  }, []);
   return (
-    <SafeAreaView style={styles.homeContainer}>
+    <View style={styles.homeContainer}>
       <View style={styles.navbarConatiner}>
         <Text style={styles.appName}>animenation</Text>
         <View style={styles.searchContainer}>
@@ -73,23 +41,14 @@ const HomeScreen = React.memo(() => {
           </TouchableOpacity>
         </View>
       </View>
-
-      {state.top.topMovie ? (
-        <ScrollView>
-          <HomeSlider
-            name={'Trending anime'}
-            compProp={state.top.trendingAnime}
-          />
-          <HomeSlider
-            name={'Trending Movie'}
-            compProp={state.top.trendingMovie}
-          />
-          <HomeSlider name={'Top anime'} compProp={state.top.topAnime} />
-          <HomeSlider name={'Top manga'} compProp={state.top.topManga} />
-          <HomeSlider name={'Top movie'} compProp={state.top.topMovie} />
-        </ScrollView>
-      ) : null}
-    </SafeAreaView>
+      <ScrollView>
+        <HomeSlider />
+        <HomeSlider />
+        <HomeSlider />
+        <HomeSlider />
+        <HomeSlider />
+      </ScrollView>
+    </View>
   );
 });
 

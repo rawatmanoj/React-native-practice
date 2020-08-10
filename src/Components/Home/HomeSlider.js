@@ -14,64 +14,28 @@ import {deviceHeight, deviceWidth} from '../../api/Constants';
 import {useNavigation} from '@react-navigation/native';
 import {useDispatch} from 'react-redux';
 
-const HomeSlider = React.memo(
-  ({compProp, name}) => {
-    const dispatch = useDispatch();
-    const navigation = useNavigation();
+const HomeSlider = React.memo(({compProp, name}) => {
+  const dispatch = useDispatch();
+  const navigation = useNavigation();
 
-    console.log('Homeslider');
+  console.log('Homeslider');
 
-    const renderItem = ({item}) => {
-      return (
-        <TouchableOpacity
-          onPress={() => {
-            dispatch({type: 'CURRENT_ANIME', payload: item.id});
-            // navigation.navigate('AnimeInfoScreen');
-            navigation.push('AnimeInfoScreen');
-          }}>
-          <Image
-            source={{uri: item.coverImage.large}}
-            style={styles.imageStyle}
-            resizeMode="cover"
-            PlaceholderContent={
-              <ActivityIndicator color={EStyleSheet.value('$spcColor')} />
-            }
-            placeholderStyle={{
-              backgroundColor: EStyleSheet.value('$shadeColor'),
-            }}
-          />
-
-          <View style={styles.titleContainer}>
-            <Text style={styles.titleStyle}>
-              {shortAnimeName(item.title.userPreferred, 20)}
-            </Text>
-          </View>
-        </TouchableOpacity>
-      );
-    };
-
-    return (
-      <SafeAreaView style={styles.container}>
-        <Text style={styles.propName}>{name}</Text>
-        <FlatList
-          showsHorizontalScrollIndicator={false}
-          horizontal={true}
-          data={compProp.Page.media}
-          renderItem={renderItem}
-          keyExtractor={(item) => {
-            return item.id.toString();
-          }}
-        />
-      </SafeAreaView>
-    );
-  },
-  (prevProps, nextProps) => {
-    if (prevProps.compProp !== nextProps.compProp) {
-      return false;
-    }
-    return true;
-  },
-);
+  return (
+    <View>
+      <TouchableOpacity
+        onPress={() => {
+          // navigation.navigate('AnimeInfoScreen');
+          navigation.navigate('AnimeInfoScreen', {
+            params: {data: 'HomeSlider'},
+          });
+        }}>
+        <View>
+          <Text>HomeSlider</Text>
+        </View>
+      </TouchableOpacity>
+    </View>
+  );
+});
 
 const styles = EStyleSheet.create({
   propName: {
@@ -106,5 +70,4 @@ const styles = EStyleSheet.create({
     width: deviceWidth * 0.28,
   },
 });
-
 export default HomeSlider;

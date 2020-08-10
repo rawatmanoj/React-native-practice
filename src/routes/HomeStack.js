@@ -24,7 +24,7 @@ const HomeStack = React.memo(() => {
         name="HomeScreen"
         component={HomeScreen}
       />
-      <Stack.Screen name="CharScreen" component={CharScreen} />
+      {/* <Stack.Screen name="CharScreen" component={CharScreen} /> */}
       <Stack.Screen
         options={{headerShown: false}}
         name="AnimeInfoScreen"

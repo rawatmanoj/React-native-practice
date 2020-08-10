@@ -23,19 +23,6 @@ const HomeStack = React.memo(() => {
         component={DiscoverScreen}
       />
       <Stack.Screen
-        options={({route}) => ({
-          headerShown: true,
-          title: route.params.title,
-          headerTintColor: 'white',
-          //   headerTitleStyle: {color: 'white'},
-          headerStyle: {
-            backgroundColor: EStyleSheet.value('$baseColor'),
-            elevation: 0, // remove shadow on Android
-            shadowOpacity: 0, // remove shadow on iOS
-          },
-
-          headerBackTitleStyle: {color: 'white'},
-        })}
         // options={({route}) => ({title: route.params.title})}
         name="DiscoverAnime"
         component={DiscoverAnime}
